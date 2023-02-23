@@ -1,0 +1,128 @@
+{
+	"name": "destination",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS-ADLS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "target"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "car_ID",
+				"type": "String"
+			},
+			{
+				"name": "symboling",
+				"type": "String"
+			},
+			{
+				"name": "CarName",
+				"type": "String"
+			},
+			{
+				"name": "fueltype",
+				"type": "String"
+			},
+			{
+				"name": "aspiration",
+				"type": "String"
+			},
+			{
+				"name": "doornumber",
+				"type": "String"
+			},
+			{
+				"name": "carbody",
+				"type": "String"
+			},
+			{
+				"name": "drivewheel",
+				"type": "String"
+			},
+			{
+				"name": "enginelocation",
+				"type": "String"
+			},
+			{
+				"name": "wheelbase",
+				"type": "String"
+			},
+			{
+				"name": "carlength",
+				"type": "String"
+			},
+			{
+				"name": "carwidth",
+				"type": "String"
+			},
+			{
+				"name": "carheight",
+				"type": "String"
+			},
+			{
+				"name": "curbweight",
+				"type": "String"
+			},
+			{
+				"name": "enginetype",
+				"type": "String"
+			},
+			{
+				"name": "cylindernumber",
+				"type": "String"
+			},
+			{
+				"name": "enginesize",
+				"type": "String"
+			},
+			{
+				"name": "fuelsystem",
+				"type": "String"
+			},
+			{
+				"name": "boreratio",
+				"type": "String"
+			},
+			{
+				"name": "stroke",
+				"type": "String"
+			},
+			{
+				"name": "compressionratio",
+				"type": "String"
+			},
+			{
+				"name": "horsepower",
+				"type": "String"
+			},
+			{
+				"name": "peakrpm",
+				"type": "String"
+			},
+			{
+				"name": "citympg",
+				"type": "String"
+			},
+			{
+				"name": "highwaympg",
+				"type": "String"
+			},
+			{
+				"name": "price",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

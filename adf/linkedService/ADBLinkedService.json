@@ -1,0 +1,16 @@
+{
+	"name": "ADBLinkedService",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "ADB Linked Service via Access Token",
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"accessToken": null,
+			"authentication": "MSI",
+			"domain": "https://adb-361182375974596.16.azuredatabricks.net",
+			"existingClusterId": "0221-084239-yr0qyw3z",
+			"workspaceResourceId": "/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-dev/providers/Microsoft.Databricks/workspaces/adb-dev-1001"
+		},
+		"annotations": []
+	}
+}
