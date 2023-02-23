@@ -1,0 +1,451 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-dev-1001"
+		},
+		"ADBLinkedService_properties_typeProperties_domain": {
+			"type": "string",
+			"defaultValue": "https://adb-361182375974596.16.azuredatabricks.net"
+		},
+		"ADBLinkedService_properties_typeProperties_workspaceResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-dev/providers/Microsoft.Databricks/workspaces/adb-dev-1001"
+		},
+		"ADBLinkedService_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0221-084239-yr0qyw3z"
+		},
+		"LS-ADLS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://csg100320009c814a38.dfs.core.windows.net"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/ADBLinkedService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "ADB Linked Service via Access Token",
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "[parameters('ADBLinkedService_properties_typeProperties_domain')]",
+					"authentication": "MSI",
+					"workspaceResourceId": "[parameters('ADBLinkedService_properties_typeProperties_workspaceResourceId')]",
+					"existingClusterId": "[parameters('ADBLinkedService_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS-ADLS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS-ADLS_properties_typeProperties_url')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
+			"apiVersion": "2018-06-01",
+			"properties": {},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Notebook1",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Repos/rspl.benifit2@hotmail.com/adf/databricks/sample"
+						},
+						"linkedServiceName": {
+							"referenceName": "ADBLinkedService",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2023-02-22T12:47:35Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADBLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/destination')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS-ADLS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "target"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "car_ID",
+						"type": "String"
+					},
+					{
+						"name": "symboling",
+						"type": "String"
+					},
+					{
+						"name": "CarName",
+						"type": "String"
+					},
+					{
+						"name": "fueltype",
+						"type": "String"
+					},
+					{
+						"name": "aspiration",
+						"type": "String"
+					},
+					{
+						"name": "doornumber",
+						"type": "String"
+					},
+					{
+						"name": "carbody",
+						"type": "String"
+					},
+					{
+						"name": "drivewheel",
+						"type": "String"
+					},
+					{
+						"name": "enginelocation",
+						"type": "String"
+					},
+					{
+						"name": "wheelbase",
+						"type": "String"
+					},
+					{
+						"name": "carlength",
+						"type": "String"
+					},
+					{
+						"name": "carwidth",
+						"type": "String"
+					},
+					{
+						"name": "carheight",
+						"type": "String"
+					},
+					{
+						"name": "curbweight",
+						"type": "String"
+					},
+					{
+						"name": "enginetype",
+						"type": "String"
+					},
+					{
+						"name": "cylindernumber",
+						"type": "String"
+					},
+					{
+						"name": "enginesize",
+						"type": "String"
+					},
+					{
+						"name": "fuelsystem",
+						"type": "String"
+					},
+					{
+						"name": "boreratio",
+						"type": "String"
+					},
+					{
+						"name": "stroke",
+						"type": "String"
+					},
+					{
+						"name": "compressionratio",
+						"type": "String"
+					},
+					{
+						"name": "horsepower",
+						"type": "String"
+					},
+					{
+						"name": "peakrpm",
+						"type": "String"
+					},
+					{
+						"name": "citympg",
+						"type": "String"
+					},
+					{
+						"name": "highwaympg",
+						"type": "String"
+					},
+					{
+						"name": "price",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS-ADLS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/source')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS-ADLS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "car.csv",
+						"fileSystem": "blob"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "car_ID",
+						"type": "String"
+					},
+					{
+						"name": "symboling",
+						"type": "String"
+					},
+					{
+						"name": "CarName",
+						"type": "String"
+					},
+					{
+						"name": "fueltype",
+						"type": "String"
+					},
+					{
+						"name": "aspiration",
+						"type": "String"
+					},
+					{
+						"name": "doornumber",
+						"type": "String"
+					},
+					{
+						"name": "carbody",
+						"type": "String"
+					},
+					{
+						"name": "drivewheel",
+						"type": "String"
+					},
+					{
+						"name": "enginelocation",
+						"type": "String"
+					},
+					{
+						"name": "wheelbase",
+						"type": "String"
+					},
+					{
+						"name": "carlength",
+						"type": "String"
+					},
+					{
+						"name": "carwidth",
+						"type": "String"
+					},
+					{
+						"name": "carheight",
+						"type": "String"
+					},
+					{
+						"name": "curbweight",
+						"type": "String"
+					},
+					{
+						"name": "enginetype",
+						"type": "String"
+					},
+					{
+						"name": "cylindernumber",
+						"type": "String"
+					},
+					{
+						"name": "enginesize",
+						"type": "String"
+					},
+					{
+						"name": "fuelsystem",
+						"type": "String"
+					},
+					{
+						"name": "boreratio",
+						"type": "String"
+					},
+					{
+						"name": "stroke",
+						"type": "String"
+					},
+					{
+						"name": "compressionratio",
+						"type": "String"
+					},
+					{
+						"name": "horsepower",
+						"type": "String"
+					},
+					{
+						"name": "peakrpm",
+						"type": "String"
+					},
+					{
+						"name": "citympg",
+						"type": "String"
+					},
+					{
+						"name": "highwaympg",
+						"type": "String"
+					},
+					{
+						"name": "price",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS-ADLS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/copy_pipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "source",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "destination",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2023-02-22T11:59:58Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/source')]",
+				"[concat(variables('factoryId'), '/datasets/destination')]"
+			]
+		}
+	]
+}

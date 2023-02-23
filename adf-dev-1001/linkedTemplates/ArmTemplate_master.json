@@ -1,0 +1,70 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-dev-1001"
+		},
+		"ADBLinkedService_properties_typeProperties_domain": {
+			"type": "string",
+			"defaultValue": "https://adb-361182375974596.16.azuredatabricks.net"
+		},
+		"ADBLinkedService_properties_typeProperties_workspaceResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-dev/providers/Microsoft.Databricks/workspaces/adb-dev-1001"
+		},
+		"ADBLinkedService_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0221-084239-yr0qyw3z"
+		},
+		"LS-ADLS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://csg100320009c814a38.dfs.core.windows.net"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "adf-dev-1001_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ADBLinkedService_properties_typeProperties_domain": {
+						"value": "[parameters('ADBLinkedService_properties_typeProperties_domain')]"
+					},
+					"ADBLinkedService_properties_typeProperties_workspaceResourceId": {
+						"value": "[parameters('ADBLinkedService_properties_typeProperties_workspaceResourceId')]"
+					},
+					"ADBLinkedService_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('ADBLinkedService_properties_typeProperties_existingClusterId')]"
+					},
+					"LS-ADLS_properties_typeProperties_url": {
+						"value": "[parameters('LS-ADLS_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
