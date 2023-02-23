@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  DeployToUAT:
     runs-on: ubuntu-latest
     name: 'DeployToUAT'
     steps:
@@ -26,3 +26,25 @@ jobs:
         template: ./adf-dev-1001/ARMTemplateForFactory.json
         deploymentMode: Incremental
         parameters: ./adf-dev-1001/ARMTemplateParametersForFactory.json factoryName=adf-uat-1001 ADBLinkedService_properties_typeProperties_domain=https://adb-3780799508248087.7.azuredatabricks.net ADBLinkedService_properties_typeProperties_existingClusterId=0221-100244-elaiow79 ADBLinkedService_properties_typeProperties_workspaceResourceId=/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-uat/providers/Microsoft.Databricks/workspaces/adb-uat-1001
+
+#   Deploy:
+#     runs-on: ubuntu-latest
+#     name: 'DeployToProd'
+#     steps:
+#     - uses: actions/checkout@v3
+
+#     - name: Azure Login
+#       uses: Azure/login@v1.4.3
+#       with:
+#         # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
+#         creds: ${{secrets.AZURE_CREDENTIALS}}
+        
+#     - name: Deploy Azure Resource Manager (ARM) Template
+#       uses: Azure/arm-deploy@v1.0.6
+#       with:
+#         # Provide the scope of the deployment. Valid values are: 'resourcegroup', 'managementgroup', 'subscription'
+#         scope: 'resourcegroup'
+#         resourceGroupName: 'rg-uat'
+#         template: ./adf-dev-1001/ARMTemplateForFactory.json
+#         deploymentMode: Incremental
+#         parameters: ./adf-dev-1001/ARMTemplateParametersForFactory.json factoryName=adf-uat-1001 ADBLinkedService_properties_typeProperties_domain=https://adb-3780799508248087.7.azuredatabricks.net ADBLinkedService_properties_typeProperties_existingClusterId=0221-100244-elaiow79 ADBLinkedService_properties_typeProperties_workspaceResourceId=/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-uat/providers/Microsoft.Databricks/workspaces/adb-uat-1001
