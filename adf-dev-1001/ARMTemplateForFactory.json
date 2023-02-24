@@ -23,13 +23,9 @@
 			"type": "string",
 			"defaultValue": "https://csg100320009c814a38.dfs.core.windows.net"
 		},
-		"default_properties_DatabricksURL_value": {
+		"default_properties_kv_name_value": {
 			"type": "string",
-			"defaultValue": "https://adb-361182375974596.16.azuredatabricks.net"
-		},
-		"default_properties_DatabricksResourceId_value": {
-			"type": "string",
-			"defaultValue": "/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-dev/providers/Microsoft.Databricks/workspaces/adb-dev-1001"
+			"defaultValue": "https://kv-dev-1001.vault.azure.net/"
 		}
 	},
 	"variables": {
@@ -460,13 +456,9 @@
 			"type": "Microsoft.DataFactory/factories/globalparameters",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"DatabricksURL": {
+				"kv_name": {
 					"type": "string",
-					"value": "[parameters('default_properties_DatabricksURL_value')]"
-				},
-				"DatabricksResourceId": {
-					"type": "string",
-					"value": "[parameters('default_properties_DatabricksResourceId_value')]"
+					"value": "[parameters('default_properties_kv_name_value')]"
 				}
 			},
 			"dependsOn": []

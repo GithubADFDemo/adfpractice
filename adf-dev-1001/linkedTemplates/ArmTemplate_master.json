@@ -23,13 +23,9 @@
 			"type": "string",
 			"defaultValue": "https://csg100320009c814a38.dfs.core.windows.net"
 		},
-		"default_properties_DatabricksURL_value": {
+		"default_properties_kv_name_value": {
 			"type": "string",
-			"defaultValue": "https://adb-361182375974596.16.azuredatabricks.net"
-		},
-		"default_properties_DatabricksResourceId_value": {
-			"type": "string",
-			"defaultValue": "/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-dev/providers/Microsoft.Databricks/workspaces/adb-dev-1001"
+			"defaultValue": "https://kv-dev-1001.vault.azure.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -58,11 +54,8 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"default_properties_DatabricksURL_value": {
-						"value": "[parameters('default_properties_DatabricksURL_value')]"
-					},
-					"default_properties_DatabricksResourceId_value": {
-						"value": "[parameters('default_properties_DatabricksResourceId_value')]"
+					"default_properties_kv_name_value": {
+						"value": "[parameters('default_properties_kv_name_value')]"
 					},
 					"ADBLinkedService_properties_typeProperties_domain": {
 						"value": "[parameters('ADBLinkedService_properties_typeProperties_domain')]"
