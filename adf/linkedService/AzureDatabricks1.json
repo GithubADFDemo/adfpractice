@@ -1,0 +1,23 @@
+{
+	"name": "AzureDatabricks1",
+	"properties": {
+		"parameters": {
+			"databricksUrl": {
+				"type": "String",
+				"defaultValue": "https://adb-361182375974596.16.azuredatabricks.net"
+			},
+			"databrickWorkspaceId": {
+				"type": "String",
+				"defaultValue": "/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-dev/providers/Microsoft.Databricks/workspaces/adb-dev-1001"
+			}
+		},
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "@linkedService().databricksUrl",
+			"authentication": "MSI",
+			"workspaceResourceId": "@linkedService().databrickWorkspaceId",
+			"existingClusterId": "0221-084239-yr0qyw3z"
+		}
+	}
+}
