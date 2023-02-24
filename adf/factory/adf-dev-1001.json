@@ -1,5 +1,13 @@
 {
 	"name": "adf-dev-1001",
+	"properties": {
+		"globalParameters": {
+			"DatabricksURL": {
+				"type": "string",
+				"value": "https://adb-361182375974596.16.azuredatabricks.net"
+			}
+		}
+	},
 	"location": "eastus2",
 	"identity": {
 		"type": "SystemAssigned",
