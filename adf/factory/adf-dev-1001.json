@@ -9,6 +9,10 @@
 			"DatabricksResourceId": {
 				"type": "string",
 				"value": "/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-dev/providers/Microsoft.Databricks/workspaces/adb-dev-1001"
+			},
+			"kv_name": {
+				"type": "string",
+				"value": "https://kv-dev-1001.vault.azure.net/"
 			}
 		}
 	},
