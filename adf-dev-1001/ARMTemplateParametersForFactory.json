@@ -16,6 +16,12 @@
 		},
 		"LS-ADLS_properties_typeProperties_url": {
 			"value": "https://csg100320009c814a38.dfs.core.windows.net"
+		},
+		"default_properties_DatabricksURL_value": {
+			"value": "https://adb-361182375974596.16.azuredatabricks.net"
+		},
+		"default_properties_DatabricksResourceId_value": {
+			"value": "/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-dev/providers/Microsoft.Databricks/workspaces/adb-dev-1001"
 		}
 	}
 }
