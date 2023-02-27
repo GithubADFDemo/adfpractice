@@ -78,62 +78,6 @@
             }
         }
     },
-    "Microsoft.DataFactory/factories/linkedServices": {
-        "*": {
-            "properties": {
-                "typeProperties": {
-                    "accountName": "=",
-                    "accountEndpoint": "=",
-                    "username": "=",
-                    "userName": "=",
-                    "accessKeyId": "=",
-                    "endpoint": "=",
-                    "servicePrincipalId": "=",
-                    "userId": "=",
-                    "host": "=",
-                    "clientId": "=",
-                    "existingClusterId": "=",
-                    "clusterUserName": "=",
-                    "clusterSshUserName": "=",
-                    "hostSubscriptionId": "=",
-                    "clusterResourceGroup": "=",
-                    "subscriptionId": "=",
-                    "resourceGroupName": "=",
-                    "tenant": "=",
-                    "dataLakeStoreUri": "=",
-                    "baseUrl": "=",
-                    "database": "=",
-                    "serviceEndpoint": "=",
-                    "batchUri": "=",
-                    "poolName": "=",
-                    "databaseName": "=",
-                    "systemNumber": "=",
-                    "server": "=",
-                    "url": "=",
-                    "functionAppUrl": "=",
-                    "environmentUrl": "=",
-                    "aadResourceId": "=",
-                    "sasUri": "|:-sasUri:secureString",
-                    "sasToken": "|",
-                    "connectionString": "|:-connectionString:secureString",
-                    "hostKeyFingerprint": "=",
-                    "mlWorkspaceName": "=",
-                    "domain": "=",
-                    "workspaceResourceId": "="
-                }
-            }
-        },
-        "Odbc": {
-            "properties": {
-                "typeProperties": {
-                    "userName": "=",
-                    "connectionString": {
-                        "secretName": "="
-                    }
-                }
-            }
-        }
-    },
     "Microsoft.DataFactory/factories/datasets": {
         "*": {
             "properties": {
