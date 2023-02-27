@@ -25,8 +25,8 @@ jobs:
         resourceGroupName: 'rg-uat'
         template: ./adf-dev-1001/ARMTemplateForFactory.json
         deploymentMode: Incremental
-        parameters: ./adf-dev-1001/ARMTemplateParametersForFactory.json factoryName=adf-uat-1001 default_properties_kv_name_value=test default_properties_environment_value=uat
-      #  parameters: ./adf-dev-1001/ARMTemplateParametersForFactory.json factoryName=adf-uat-1001 ADBLinkedService_properties_typeProperties_domain=https://adb-3780799508248087.7.azuredatabricks.net ADBLinkedService_properties_typeProperties_existingClusterId=0221-100244-elaiow79 ADBLinkedService_properties_typeProperties_workspaceResourceId=/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-uat/providers/Microsoft.Databricks/workspaces/adb-uat-1001
+      #  parameters: ./adf-dev-1001/ARMTemplateParametersForFactory.json factoryName=adf-uat-1001 default_properties_kv_name_value=test default_properties_environment_value=uat
+        parameters: ./adf-dev-1001/ARMTemplateParametersForFactory.json factoryName=adf-uat-1001 ADBLinkedService_properties_typeProperties_domain=https://adb-3780799508248087.7.azuredatabricks.net ADBLinkedService_properties_typeProperties_existingClusterId=0221-100244-elaiow79 ADBLinkedService_properties_typeProperties_workspaceResourceId=/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-uat/providers/Microsoft.Databricks/workspaces/adb-uat-1001 default_properties_kv_name_value=test default_properties_environment_value=uat
 
 #   Deploy:
 #     runs-on: ubuntu-latest
