@@ -7,26 +7,6 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-dev-1001"
 		},
-		"ADBLinkedService_properties_typeProperties_domain": {
-			"type": "string",
-			"defaultValue": "https://adb-361182375974596.16.azuredatabricks.net"
-		},
-		"ADBLinkedService_properties_typeProperties_workspaceResourceId": {
-			"type": "string",
-			"defaultValue": "/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-dev/providers/Microsoft.Databricks/workspaces/adb-dev-1001"
-		},
-		"ADBLinkedService_properties_typeProperties_existingClusterId": {
-			"type": "string",
-			"defaultValue": "0221-084239-yr0qyw3z"
-		},
-		"LS-ADLS_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://csg100320009c814a38.dfs.core.windows.net"
-		},
-		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
-			"type": "string",
-			"defaultValue": "https://kv-dev-1001.vault.azure.net/"
-		},
 		"default_properties_kv_name_value": {
 			"type": "string",
 			"defaultValue": "https://kv-dev-1001.vault.azure.net/"
@@ -67,21 +47,6 @@
 					},
 					"default_properties_environment_value": {
 						"value": "[parameters('default_properties_environment_value')]"
-					},
-					"ADBLinkedService_properties_typeProperties_domain": {
-						"value": "[parameters('ADBLinkedService_properties_typeProperties_domain')]"
-					},
-					"ADBLinkedService_properties_typeProperties_workspaceResourceId": {
-						"value": "[parameters('ADBLinkedService_properties_typeProperties_workspaceResourceId')]"
-					},
-					"ADBLinkedService_properties_typeProperties_existingClusterId": {
-						"value": "[parameters('ADBLinkedService_properties_typeProperties_existingClusterId')]"
-					},
-					"LS-ADLS_properties_typeProperties_url": {
-						"value": "[parameters('LS-ADLS_properties_typeProperties_url')]"
-					},
-					"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
-						"value": "[parameters('AzureKeyVault_ls_properties_typeProperties_baseUrl')]"
 					}
 				}
 			},
