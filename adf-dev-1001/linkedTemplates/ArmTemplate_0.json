@@ -30,6 +30,10 @@
 		"LS-ADLS_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://csg100320009c814a38.dfs.core.windows.net"
+		},
+		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-dev-1001.vault.azure.net/"
 		}
 	},
 	"variables": {
@@ -87,6 +91,19 @@
 			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
 			"apiVersion": "2018-06-01",
 			"properties": {},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureKeyVault_ls')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('AzureKeyVault_ls_properties_typeProperties_baseUrl')]"
+				}
+			},
 			"dependsOn": []
 		},
 		{

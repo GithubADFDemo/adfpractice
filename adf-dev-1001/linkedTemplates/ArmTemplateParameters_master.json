@@ -17,6 +17,9 @@
 		"LS-ADLS_properties_typeProperties_url": {
 			"value": "https://csg100320009c814a38.dfs.core.windows.net"
 		},
+		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
+			"value": "https://kv-dev-1001.vault.azure.net/"
+		},
 		"default_properties_kv_name_value": {
 			"value": "https://kv-dev-1001.vault.azure.net/"
 		},
