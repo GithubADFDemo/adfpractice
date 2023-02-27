@@ -7,6 +7,26 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-dev-1001"
 		},
+		"ADBLinkedService_properties_typeProperties_domain": {
+			"type": "string",
+			"defaultValue": "https://adb-361182375974596.16.azuredatabricks.net"
+		},
+		"ADBLinkedService_properties_typeProperties_workspaceResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-dev/providers/Microsoft.Databricks/workspaces/adb-dev-1001"
+		},
+		"ADBLinkedService_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0221-084239-yr0qyw3z"
+		},
+		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-dev-1001.vault.azure.net/"
+		},
+		"LS-ADLS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://csg100320009c814a38.dfs.core.windows.net"
+		},
 		"default_properties_kv_name_value": {
 			"type": "string",
 			"defaultValue": "https://kv-dev-1001.vault.azure.net/"
@@ -411,10 +431,10 @@
 				"annotations": [],
 				"type": "AzureDatabricks",
 				"typeProperties": {
-					"domain": "https://adb-361182375974596.16.azuredatabricks.net",
+					"domain": "[parameters('ADBLinkedService_properties_typeProperties_domain')]",
 					"authentication": "MSI",
-					"workspaceResourceId": "/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-dev/providers/Microsoft.Databricks/workspaces/adb-dev-1001",
-					"existingClusterId": "0221-084239-yr0qyw3z"
+					"workspaceResourceId": "[parameters('ADBLinkedService_properties_typeProperties_workspaceResourceId')]",
+					"existingClusterId": "[parameters('ADBLinkedService_properties_typeProperties_existingClusterId')]"
 				}
 			},
 			"dependsOn": []
@@ -427,7 +447,7 @@
 				"annotations": [],
 				"type": "AzureKeyVault",
 				"typeProperties": {
-					"baseUrl": "https://kv-dev-1001.vault.azure.net/"
+					"baseUrl": "[parameters('AzureKeyVault_ls_properties_typeProperties_baseUrl')]"
 				}
 			},
 			"dependsOn": []
@@ -440,7 +460,7 @@
 				"annotations": [],
 				"type": "AzureBlobFS",
 				"typeProperties": {
-					"url": "https://csg100320009c814a38.dfs.core.windows.net"
+					"url": "[parameters('LS-ADLS_properties_typeProperties_url')]"
 				}
 			},
 			"dependsOn": []
