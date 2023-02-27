@@ -5,6 +5,10 @@
 			"kv_name": {
 				"type": "string",
 				"value": "https://kv-dev-1001.vault.azure.net/"
+			},
+			"environment": {
+				"type": "string",
+				"value": "dev"
 			}
 		}
 	},
