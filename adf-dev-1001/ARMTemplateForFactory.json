@@ -19,6 +19,18 @@
 			"type": "string",
 			"defaultValue": "0221-084239-yr0qyw3z"
 		},
+		"AzureDatabricks1_properties_typeProperties_domain": {
+			"type": "string",
+			"defaultValue": "@linkedService().databricksUrl"
+		},
+		"AzureDatabricks1_properties_typeProperties_workspaceResourceId": {
+			"type": "string",
+			"defaultValue": "@linkedService().databrickWorkspaceId"
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0221-084239-yr0qyw3z"
+		},
 		"LS-ADLS_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://csg100320009c814a38.dfs.core.windows.net"
@@ -26,6 +38,10 @@
 		"default_properties_kv_name_value": {
 			"type": "string",
 			"defaultValue": "https://kv-dev-1001.vault.azure.net/"
+		},
+		"default_properties_environment_value": {
+			"type": "string",
+			"defaultValue": "dev"
 		}
 	},
 	"variables": {
@@ -432,6 +448,32 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricks1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"databricksUrl": {
+						"type": "String",
+						"defaultValue": "https://adb-361182375974596.16.azuredatabricks.net"
+					},
+					"databrickWorkspaceId": {
+						"type": "String",
+						"defaultValue": "/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-dev/providers/Microsoft.Databricks/workspaces/adb-dev-1001"
+					}
+				},
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "[parameters('AzureDatabricks1_properties_typeProperties_domain')]",
+					"authentication": "MSI",
+					"workspaceResourceId": "[parameters('AzureDatabricks1_properties_typeProperties_workspaceResourceId')]",
+					"existingClusterId": "[parameters('AzureDatabricks1_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/LS-ADLS')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -459,6 +501,10 @@
 				"kv_name": {
 					"type": "string",
 					"value": "[parameters('default_properties_kv_name_value')]"
+				},
+				"environment": {
+					"type": "string",
+					"value": "[parameters('default_properties_environment_value')]"
 				}
 			},
 			"dependsOn": []

@@ -19,6 +19,18 @@
 			"type": "string",
 			"defaultValue": "0221-084239-yr0qyw3z"
 		},
+		"AzureDatabricks1_properties_typeProperties_domain": {
+			"type": "string",
+			"defaultValue": "@linkedService().databricksUrl"
+		},
+		"AzureDatabricks1_properties_typeProperties_workspaceResourceId": {
+			"type": "string",
+			"defaultValue": "@linkedService().databrickWorkspaceId"
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0221-084239-yr0qyw3z"
+		},
 		"LS-ADLS_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://csg100320009c814a38.dfs.core.windows.net"
@@ -26,6 +38,10 @@
 		"default_properties_kv_name_value": {
 			"type": "string",
 			"defaultValue": "https://kv-dev-1001.vault.azure.net/"
+		},
+		"default_properties_environment_value": {
+			"type": "string",
+			"defaultValue": "dev"
 		},
 		"containerUri": {
 			"type": "string",
@@ -57,6 +73,9 @@
 					"default_properties_kv_name_value": {
 						"value": "[parameters('default_properties_kv_name_value')]"
 					},
+					"default_properties_environment_value": {
+						"value": "[parameters('default_properties_environment_value')]"
+					},
 					"ADBLinkedService_properties_typeProperties_domain": {
 						"value": "[parameters('ADBLinkedService_properties_typeProperties_domain')]"
 					},
@@ -65,6 +84,15 @@
 					},
 					"ADBLinkedService_properties_typeProperties_existingClusterId": {
 						"value": "[parameters('ADBLinkedService_properties_typeProperties_existingClusterId')]"
+					},
+					"AzureDatabricks1_properties_typeProperties_domain": {
+						"value": "[parameters('AzureDatabricks1_properties_typeProperties_domain')]"
+					},
+					"AzureDatabricks1_properties_typeProperties_workspaceResourceId": {
+						"value": "[parameters('AzureDatabricks1_properties_typeProperties_workspaceResourceId')]"
+					},
+					"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('AzureDatabricks1_properties_typeProperties_existingClusterId')]"
 					},
 					"LS-ADLS_properties_typeProperties_url": {
 						"value": "[parameters('LS-ADLS_properties_typeProperties_url')]"

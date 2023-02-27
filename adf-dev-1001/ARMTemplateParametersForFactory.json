@@ -14,11 +14,23 @@
 		"ADBLinkedService_properties_typeProperties_existingClusterId": {
 			"value": "0221-084239-yr0qyw3z"
 		},
+		"AzureDatabricks1_properties_typeProperties_domain": {
+			"value": "@linkedService().databricksUrl"
+		},
+		"AzureDatabricks1_properties_typeProperties_workspaceResourceId": {
+			"value": "@linkedService().databrickWorkspaceId"
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"value": "0221-084239-yr0qyw3z"
+		},
 		"LS-ADLS_properties_typeProperties_url": {
 			"value": "https://csg100320009c814a38.dfs.core.windows.net"
 		},
 		"default_properties_kv_name_value": {
 			"value": "https://kv-dev-1001.vault.azure.net/"
+		},
+		"default_properties_environment_value": {
+			"value": "dev"
 		}
 	}
 }
