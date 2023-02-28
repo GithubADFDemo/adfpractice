@@ -10,6 +10,8 @@ jobs:
     name: 'DeployToUAT'
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: adf_publish
 
     - name: Azure Login
       uses: Azure/login@v1.4.3
