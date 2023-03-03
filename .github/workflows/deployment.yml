@@ -25,7 +25,7 @@ jobs:
         scope: 'resourcegroup'
         resourceGroupName: 'rg-uat'
         template: ./adf-dev-1001/ARMTemplateForFactory.json
-        deploymentMode: Incremental
+        deploymentMode: Complete # Incremental
         parameters: ./adf-dev-1001/ARMTemplateParametersForFactory.json factoryName=adf-uat-1001 
                     ADBLinkedService_properties_typeProperties_domain=${{secrets.UAT_ADB_WORKSPACE_URL}}
                     ADBLinkedService_properties_typeProperties_existingClusterId=0221-100244-elaiow79 
