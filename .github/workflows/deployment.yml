@@ -1,7 +1,7 @@
 on: 
-  push:
-    branches:
-      - adf_publish
+#   push:
+#     branches:
+#       - adf_publish
   workflow_dispatch:
 
 jobs:
