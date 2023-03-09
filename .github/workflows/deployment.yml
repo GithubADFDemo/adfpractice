@@ -1,7 +1,7 @@
 on: 
-#   push:
-#     branches:
-#       - adf_publish
+  push:
+    branches:
+      - adf_publish
   workflow_dispatch:
 
 jobs:
@@ -18,21 +18,39 @@ jobs:
         # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
         creds: ${{secrets.AZURE_CREDENTIALS}}
         
-    - name: Deploy Azure Resource Manager (ARM) Template
-      uses: Azure/arm-deploy@v1.0.6
-      with:
-        # Provide the scope of the deployment. Valid values are: 'resourcegroup', 'managementgroup', 'subscription'
-        scope: 'resourcegroup'
-        resourceGroupName: 'rg-uat'
-        template: ./adf-dev-1001/ARMTemplateForFactory.json
-        deploymentMode: Incremental
-        parameters: ./adf-dev-1001/ARMTemplateParametersForFactory.json factoryName=adf-uat-1001 
+    - name: Deploy resources
+      uses: Azure/data-factory-deploy-action@v1.2.0
+        with:
+          resourceGroupName: rg-uat
+          dataFactoryName: adf-uat-1001
+          armTemplateFile: ./adf-dev-1001/ARMTemplateParametersForFactory.json
+          deploymentMode: Incremental
+          parameters: ./adf-dev-1001/ARMTemplateParametersForFactory.json factoryName=adf-uat-1001 
                     ADBLinkedService_properties_typeProperties_domain=${{secrets.UAT_ADB_WORKSPACE_URL}}
                     ADBLinkedService_properties_typeProperties_existingClusterId=0303-114040-3ne2ywnk
                     ADBLinkedService_properties_typeProperties_workspaceResourceId=${{secrets.UAT_ADB_WORKSPACE_RESOURCE_ID}} 
                     default_properties_kv_name_value=${{secrets.UAT_KEYVAULT_URI}} 
                     default_properties_environment_value=uat 
                     AzureKeyVault_ls_properties_typeProperties_baseUrl=${{secrets.UAT_KEYVAULT_URI}}
+          
+      # armTemplateParametersFile: myArmTemplateParameters.json [optional]
+      # additionalParameters: 'key1=value key2=value keyN=value' [optional]
+      # skipAzModuleInstallation: true [optional]
+#     - name: Deploy Azure Resource Manager (ARM) Template
+#       uses: Azure/arm-deploy@v1.0.6
+#       with:
+#         # Provide the scope of the deployment. Valid values are: 'resourcegroup', 'managementgroup', 'subscription'
+#         scope: 'resourcegroup'
+#         resourceGroupName: 'rg-uat'
+#         template: ./adf-dev-1001/ARMTemplateForFactory.json
+#         deploymentMode: Incremental
+#         parameters: ./adf-dev-1001/ARMTemplateParametersForFactory.json factoryName=adf-uat-1001 
+#                     ADBLinkedService_properties_typeProperties_domain=${{secrets.UAT_ADB_WORKSPACE_URL}}
+#                     ADBLinkedService_properties_typeProperties_existingClusterId=0303-114040-3ne2ywnk
+#                     ADBLinkedService_properties_typeProperties_workspaceResourceId=${{secrets.UAT_ADB_WORKSPACE_RESOURCE_ID}} 
+#                     default_properties_kv_name_value=${{secrets.UAT_KEYVAULT_URI}} 
+#                     default_properties_environment_value=uat 
+#                     AzureKeyVault_ls_properties_typeProperties_baseUrl=${{secrets.UAT_KEYVAULT_URI}}
 
 #   Deploy:
 #     runs-on: ubuntu-latest
