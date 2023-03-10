@@ -64,7 +64,12 @@ jobs:
 #             }
 
 #           azPSVersion: "9.1.0"
-
+      - name: Login via Az module
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true 
+          
       # Determine If Uat ADF is Deployed
       - name: Determine if Uat ADF in Variable File is Deployed
         uses: azure/powershell@v1
