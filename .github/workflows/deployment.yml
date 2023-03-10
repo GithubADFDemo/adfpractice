@@ -23,7 +23,7 @@ jobs:
       uses: Azure/data-factory-deploy-action@v1.2.0
       with:
           resourceGroupName: rg-uat
-          dataFactoryName: adf-uat-1001
+#           dataFactoryName: adf-uat-1001
           deploymentMode: Incremental
           armTemplateFile: ./adf-dev-1001/ARMTemplateParametersForFactory.json
           armTemplateParametersFile: ./adf-dev-1001/ARMTemplateParametersForFactory.json 
