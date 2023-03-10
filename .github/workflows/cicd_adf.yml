@@ -24,7 +24,7 @@ jobs:
       dataFactoryNameDev: ${{ env.dataFactoryNameDev }}
       dataFactoryNameUat: ${{ env.dataFactoryNameUat }}
       dataFactoryResourceGroupNameUat: ${{ env.dataFactoryResourceGroupNameUat }}
-      DataFactoryExistsCheckTest: ${{ env.DataFactoryExistsCheckTest }}
+      DataFactoryExistsCheckUat: ${{ env.DataFactoryExistsCheckUat }}
 #       dataFactoryNameTest: ${{ env.dataFactoryNameTest }}
 #       dataFactoryNameProd: ${{ env.dataFactoryNameProd }}
 #       dataFactoryResourceGroupNameTest: ${{ env.dataFactoryResourceGroupNameTest }}
@@ -72,16 +72,16 @@ jobs:
           inlineScript: |
             $json_data = Get-Content "./variables/local_variables.json" | ConvertFrom-Json
 
-            # prod data factory check
+            # uat data factory check
             $dataFactoryNameUat = $json_data.dataFactoryNameUat
             "dataFactoryNameUat=$dataFactoryNameUat" >> $env:GITHUB_ENV
             
-            $dataFactoryResourceGroupNameUat = $json_data.prodResourceGroupName
+            $dataFactoryResourceGroupNameUat = $json_data.uatResourceGroupName
             "dataFactoryResourceGroupNameUat=$dataFactoryResourceGroupNameUat" >> $env:GITHUB_ENV
 
             if ( !([string]::IsNullOrEmpty($dataFactoryNameUat)) ) { 
-              $DataFactoryExistsCheckTest = Get-AzResource -Name $dataFactoryNameUat
-              "DataFactoryExistsCheckTest=$DataFactoryExistsCheckUat" >> $env:GITHUB_ENV
+              $DataFactoryExistsCheckUat = Get-AzResource -Name $dataFactoryNameUat
+              "DataFactoryExistsCheckUat=$DataFactoryExistsCheckUat" >> $env:GITHUB_ENV
             } else {
               "DataFactoryExistsCheckUat=false" >> $env:GITHUB_ENV
             }
@@ -121,7 +121,7 @@ jobs:
 
   deploy-to-prod-datafactory:
     needs: determine-data-factories-exist
-    if: ${{ needs.determine-data-factories-exist.outputs.DataFactoryExistsCheckTest != 'false' }}
+    if: ${{ needs.determine-data-factories-exist.outputs.DataFactoryExistsCheckUat != 'false' }}
 
     # The type of runner that the job will run on
     runs-on: ubuntu-22.04
