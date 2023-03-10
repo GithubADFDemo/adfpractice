@@ -24,7 +24,7 @@ jobs:
       dataFactoryNameDev: ${{ env.dataFactoryNameDev }}
       dataFactoryNameUat: ${{ env.dataFactoryNameUat }}
       dataFactoryResourceGroupNameUat: ${{ env.dataFactoryResourceGroupNameUat }}
-      DataFactoryExistsCheckUat: ${{ env.DataFactoryExistsCheckUat }}
+      DataFactoryExistsCheckTest: ${{ env.DataFactoryExistsCheckTest }}
 #       dataFactoryNameTest: ${{ env.dataFactoryNameTest }}
 #       dataFactoryNameProd: ${{ env.dataFactoryNameProd }}
 #       dataFactoryResourceGroupNameTest: ${{ env.dataFactoryResourceGroupNameTest }}
