@@ -1,0 +1,148 @@
+# This is a basic workflow to help you get started with Actions
+
+name: cicd-adf
+
+# Controls when the workflow will run
+on:
+  # Workflow executes when new commit happens on main within data factory publish folder
+  push:
+    branches:
+      - 'adf_publish'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+          
+  determine-data-factories-exist:
+
+    # The type of runner that the job will run on
+    runs-on: ubuntu-22.04
+
+    outputs:
+      dataFactoryNameDev: ${{ env.dataFactoryNameDev }}
+      dataFactoryNameTest: ${{ env.dataFactoryNameTest }}
+      dataFactoryNameProd: ${{ env.dataFactoryNameProd }}
+      dataFactoryResourceGroupNameTest: ${{ env.dataFactoryResourceGroupNameTest }}
+      dataFactoryResourceGroupNameProd: ${{ env.dataFactoryResourceGroupNameProd }}
+      DataFactoryExistsCheckTest: ${{ env.DataFactoryExistsCheckTest }}
+      DataFactoryExistsCheckProd: ${{ env.DataFactoryExistsCheckProd }}
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+
+      # Determine If Test ADF is Deployed
+      - name: Determine if Test ADF in Variable File is Deployed
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            $json_data = Get-Content "./DeliveryIP_GitHub/variables/local_variables.json" | ConvertFrom-Json
+
+            # dev data factory name
+            $dataFactoryNameDev = $json_data.dataFactoryNameDev
+            "dataFactoryNameDev=$dataFactoryNameDev" >> $env:GITHUB_ENV
+
+            # test data factory check
+            $dataFactoryNameTest = $json_data.dataFactoryNameTest
+            "dataFactoryNameTest=$dataFactoryNameTest" >> $env:GITHUB_ENV
+            
+            $dataFactoryResourceGroupNameTest = $json_data.testResourceGroupName
+            "dataFactoryResourceGroupNameTest=$dataFactoryResourceGroupNameTest" >> $env:GITHUB_ENV
+
+            if ( !([string]::IsNullOrEmpty($dataFactoryNameTest)) ) { 
+              $DataFactoryExistsCheckTest = Get-AzResource -Name $dataFactoryNameTest
+              "DataFactoryExistsCheckTest=$DataFactoryExistsCheckTest" >> $env:GITHUB_ENV
+            } else {
+              "DataFactoryExistsCheckTest=false" >> $env:GITHUB_ENV
+            }
+
+          azPSVersion: "9.1.0"
+
+      # Determine If Prod ADF is Deployed
+      - name: Determine if Prod ADF in Variable File is Deployed
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            $json_data = Get-Content "./DeliveryIP_GitHub/variables/local_variables.json" | ConvertFrom-Json
+
+            # prod data factory check
+            $dataFactoryNameProd = $json_data.dataFactoryNameProd
+            "dataFactoryNameProd=$dataFactoryNameProd" >> $env:GITHUB_ENV
+            
+            $dataFactoryResourceGroupNameProd = $json_data.prodResourceGroupName
+            "dataFactoryResourceGroupNameProd=$dataFactoryResourceGroupNameProd" >> $env:GITHUB_ENV
+
+            if ( !([string]::IsNullOrEmpty($dataFactoryNameProd)) ) { 
+              $DataFactoryExistsCheckProd = Get-AzResource -Name $dataFactoryNameProd
+              "DataFactoryExistsCheckProd=$DataFactoryExistsCheckProd" >> $env:GITHUB_ENV
+            } else {
+              "DataFactoryExistsCheckProd=false" >> $env:GITHUB_ENV
+            }
+            
+          azPSVersion: "9.1.0"
+
+  deploy-to-test-datafactory:
+    needs: determine-data-factories-exist
+    if: ${{ needs.determine-data-factories-exist.outputs.DataFactoryExistsCheckTest != 'false' }}
+
+    # The type of runner that the job will run on
+    runs-on: ubuntu-22.04
+
+    environment: 
+      name: test
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Log into Azure
+      - name: Log into Azure
+        uses: azure/login@v1
+        with:
+          creds: '{"clientId":"${{ secrets.SERVICE_PRINCIPAL_CLIENT_ID }}","clientSecret":"${{ secrets.SERVICE_PRINCIPAL_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID_TEST }}","tenantId":"${{ secrets.TENANT_ID }}"}'
+          enable-AzPSSession: true
+
+      - name: Deploy to Data Factory
+        uses: Azure/data-factory-deploy-action@v1.2.0
+        with:
+          resourceGroupName: ${{ needs.determine-data-factories-exist.outputs.dataFactoryResourceGroupNameTest }}
+          dataFactoryName: ${{ needs.determine-data-factories-exist.outputs.dataFactoryNameDev }}
+          armTemplateFile: ./${{ needs.determine-data-factories-exist.outputs.dataFactoryNameDev }}/ARMTemplateForFactory.json
+          armTemplateParametersFile: ./${{ needs.determine-data-factories-exist.outputs.dataFactoryNameTest }}/ARMTemplateParametersForFactory.json
+          # additionalParameters: 'key1=value key2=value keyN=value' [optional]
+          # skipAzModuleInstallation: true [optional]
+
+  deploy-to-prod-datafactory:
+    needs: determine-data-factories-exist
+    if: ${{ needs.determine-data-factories-exist.outputs.DataFactoryExistsCheckTest != 'false' }}
+
+    # The type of runner that the job will run on
+    runs-on: ubuntu-22.04
+
+    environment: 
+      name: production
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Log into Azure
+      - name: Log into Azure
+        uses: azure/login@v1
+        with:
+          creds: '{"clientId":"${{ secrets.SERVICE_PRINCIPAL_CLIENT_ID }}","clientSecret":"${{ secrets.SERVICE_PRINCIPAL_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID_PROD }}","tenantId":"${{ secrets.TENANT_ID }}"}'
+          enable-AzPSSession: true
+
+      - name: Deploy to Data Factory
+        uses: Azure/data-factory-deploy-action@v1.2.0
+        with:
+          resourceGroupName: ${{ needs.determine-data-factories-exist.outputs.dataFactoryResourceGroupNameProd }}
+          dataFactoryName: ${{ needs.determine-data-factories-exist.outputs.dataFactoryNameDev }}
+          armTemplateFile: ./${{ needs.determine-data-factories-exist.outputs.dataFactoryNameDev }}/ARMTemplateForFactory.json
+          armTemplateParametersFile: ./${{ needs.determine-data-factories-exist.outputs.dataFactoryNameProd }}/ARMTemplateParametersForFactory.json
+          # additionalParameters: 'key1=value key2=value keyN=value' [optional]
+          # skipAzModuleInstallation: true [optional]
