@@ -15,83 +15,83 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
           
-  determine-data-factories-exist:
+#   determine-data-factories-exist:
 
-    # The type of runner that the job will run on
-    runs-on: ubuntu-22.04
+#     # The type of runner that the job will run on
+#     runs-on: ubuntu-22.04
 
-    outputs:
-      dataFactoryNameDev: ${{ env.dataFactoryNameDev }}
-      dataFactoryNameUat: ${{ env.dataFactoryNameUat }}
-      dataFactoryResourceGroupNameUat: ${{ env.dataFactoryResourceGroupNameUat }}
-      DataFactoryExistsCheckUat: ${{ env.DataFactoryExistsCheckUat }}
-#       dataFactoryNameTest: ${{ env.dataFactoryNameTest }}
-#       dataFactoryNameProd: ${{ env.dataFactoryNameProd }}
-#       dataFactoryResourceGroupNameTest: ${{ env.dataFactoryResourceGroupNameTest }}
-#       dataFactoryResourceGroupNameProd: ${{ env.dataFactoryResourceGroupNameProd }}
-#       DataFactoryExistsCheckTest: ${{ env.DataFactoryExistsCheckTest }}
-#       DataFactoryExistsCheckProd: ${{ env.DataFactoryExistsCheckProd }}
+#     outputs:
+#       dataFactoryNameDev: ${{ env.dataFactoryNameDev }}
+#       dataFactoryNameUat: ${{ env.dataFactoryNameUat }}
+#       dataFactoryResourceGroupNameUat: ${{ env.dataFactoryResourceGroupNameUat }}
+#       DataFactoryExistsCheckUat: ${{ env.DataFactoryExistsCheckUat }}
+# #       dataFactoryNameTest: ${{ env.dataFactoryNameTest }}
+# #       dataFactoryNameProd: ${{ env.dataFactoryNameProd }}
+# #       dataFactoryResourceGroupNameTest: ${{ env.dataFactoryResourceGroupNameTest }}
+# #       dataFactoryResourceGroupNameProd: ${{ env.dataFactoryResourceGroupNameProd }}
+# #       DataFactoryExistsCheckTest: ${{ env.DataFactoryExistsCheckTest }}
+# #       DataFactoryExistsCheckProd: ${{ env.DataFactoryExistsCheckProd }}
 
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-        with:
-          ref: main
+#     steps:
+#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#       - uses: actions/checkout@v3
+#         with:
+#           ref: main
 
-#       # Determine If Test ADF is Deployed
-#       - name: Determine if Test ADF in Variable File is Deployed
+# #       # Determine If Test ADF is Deployed
+# #       - name: Determine if Test ADF in Variable File is Deployed
+# #         uses: azure/powershell@v1
+# #         with:
+# #           inlineScript: |
+# #             $json_data = Get-Content "./variables/local_variables.json" | ConvertFrom-Json
+
+# #             # dev data factory name
+# #             $dataFactoryNameDev = $json_data.dataFactoryNameDev
+# #             "dataFactoryNameDev=$dataFactoryNameDev" >> $env:GITHUB_ENV
+
+# #             # test data factory check
+# #             $dataFactoryNameTest = $json_data.dataFactoryNameTest
+# #             "dataFactoryNameTest=$dataFactoryNameTest" >> $env:GITHUB_ENV
+            
+# #             $dataFactoryResourceGroupNameTest = $json_data.testResourceGroupName
+# #             "dataFactoryResourceGroupNameTest=$dataFactoryResourceGroupNameTest" >> $env:GITHUB_ENV
+
+# #             if ( !([string]::IsNullOrEmpty($dataFactoryNameTest)) ) { 
+# #               $DataFactoryExistsCheckTest = Get-AzResource -Name $dataFactoryNameTest
+# #               "DataFactoryExistsCheckTest=$DataFactoryExistsCheckTest" >> $env:GITHUB_ENV
+# #             } else {
+# #               "DataFactoryExistsCheckTest=false" >> $env:GITHUB_ENV
+# #             }
+
+# #           azPSVersion: "9.1.0"
+#       - name: Login via Az module
+#         uses: azure/login@v1
+#         with:
+#           creds: ${{ secrets.AZURE_CREDENTIALS }}
+#           enable-AzPSSession: true 
+          
+#       # Determine If Uat ADF is Deployed
+#       - name: Determine if Uat ADF in Variable File is Deployed
 #         uses: azure/powershell@v1
 #         with:
 #           inlineScript: |
 #             $json_data = Get-Content "./variables/local_variables.json" | ConvertFrom-Json
 
-#             # dev data factory name
-#             $dataFactoryNameDev = $json_data.dataFactoryNameDev
-#             "dataFactoryNameDev=$dataFactoryNameDev" >> $env:GITHUB_ENV
-
-#             # test data factory check
-#             $dataFactoryNameTest = $json_data.dataFactoryNameTest
-#             "dataFactoryNameTest=$dataFactoryNameTest" >> $env:GITHUB_ENV
+#             # uat data factory check
+#             $dataFactoryNameUat = $json_data.dataFactoryNameUat
+#             "dataFactoryNameUat=$dataFactoryNameUat" >> $env:GITHUB_ENV
             
-#             $dataFactoryResourceGroupNameTest = $json_data.testResourceGroupName
-#             "dataFactoryResourceGroupNameTest=$dataFactoryResourceGroupNameTest" >> $env:GITHUB_ENV
+#             $dataFactoryResourceGroupNameUat = $json_data.uatResourceGroupName
+#             "dataFactoryResourceGroupNameUat=$dataFactoryResourceGroupNameUat" >> $env:GITHUB_ENV
 
-#             if ( !([string]::IsNullOrEmpty($dataFactoryNameTest)) ) { 
-#               $DataFactoryExistsCheckTest = Get-AzResource -Name $dataFactoryNameTest
-#               "DataFactoryExistsCheckTest=$DataFactoryExistsCheckTest" >> $env:GITHUB_ENV
+#             if ( !([string]::IsNullOrEmpty($dataFactoryNameUat)) ) { 
+#               $DataFactoryExistsCheckUat = Get-AzResource -Name $dataFactoryNameUat
+#               "DataFactoryExistsCheckUat=$DataFactoryExistsCheckUat" >> $env:GITHUB_ENV
 #             } else {
-#               "DataFactoryExistsCheckTest=false" >> $env:GITHUB_ENV
+#               "DataFactoryExistsCheckUat=false" >> $env:GITHUB_ENV
 #             }
-
+            
 #           azPSVersion: "9.1.0"
-      - name: Login via Az module
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          enable-AzPSSession: true 
-          
-      # Determine If Uat ADF is Deployed
-      - name: Determine if Uat ADF in Variable File is Deployed
-        uses: azure/powershell@v1
-        with:
-          inlineScript: |
-            $json_data = Get-Content "./variables/local_variables.json" | ConvertFrom-Json
-
-            # uat data factory check
-            $dataFactoryNameUat = $json_data.dataFactoryNameUat
-            "dataFactoryNameUat=$dataFactoryNameUat" >> $env:GITHUB_ENV
-            
-            $dataFactoryResourceGroupNameUat = $json_data.uatResourceGroupName
-            "dataFactoryResourceGroupNameUat=$dataFactoryResourceGroupNameUat" >> $env:GITHUB_ENV
-
-            if ( !([string]::IsNullOrEmpty($dataFactoryNameUat)) ) { 
-              $DataFactoryExistsCheckUat = Get-AzResource -Name $dataFactoryNameUat
-              "DataFactoryExistsCheckUat=$DataFactoryExistsCheckUat" >> $env:GITHUB_ENV
-            } else {
-              "DataFactoryExistsCheckUat=false" >> $env:GITHUB_ENV
-            }
-            
-          azPSVersion: "9.1.0"
 
 #   deploy-to-test-datafactory:
 #     needs: determine-data-factories-exist
@@ -125,7 +125,7 @@ jobs:
 #           # skipAzModuleInstallation: true [optional]
 
   deploy-to-prod-datafactory:
-    needs: determine-data-factories-exist
+#     needs: determine-data-factories-exist
 #     if: ${{ needs.determine-data-factories-exist.outputs.DataFactoryExistsCheckUat != 'false' }}
 
     # The type of runner that the job will run on
