@@ -126,7 +126,7 @@ jobs:
 
   deploy-to-prod-datafactory:
     needs: determine-data-factories-exist
-    if: ${{ needs.determine-data-factories-exist.outputs.DataFactoryExistsCheckUat != 'false' }}
+#     if: ${{ needs.determine-data-factories-exist.outputs.DataFactoryExistsCheckUat != 'false' }}
 
     # The type of runner that the job will run on
     runs-on: ubuntu-22.04
@@ -148,9 +148,9 @@ jobs:
       - name: Deploy to Data Factory
         uses: Azure/data-factory-deploy-action@v1.2.0
         with:
-          resourceGroupName: ${{ needs.determine-data-factories-exist.outputs.dataFactoryResourceGroupNameUat }}
-          dataFactoryName: ${{ needs.determine-data-factories-exist.outputs.dataFactoryNameDev }}
-          armTemplateFile: ./${{ needs.determine-data-factories-exist.outputs.dataFactoryNameDev }}/ARMTemplateForFactory.json
-          armTemplateParametersFile: ./${{ needs.determine-data-factories-exist.outputs.dataFactoryNameUat }}/ARMTemplateParametersForFactory.json
-          # additionalParameters: 'key1=value key2=value keyN=value' [optional]
+          resourceGroupName: rg-uat
+          dataFactoryName: adf-uat-1001
+          armTemplateFile: ./adf-dev-1001/ARMTemplateForFactory.json
+          armTemplateParametersFile: ./adf-dev-1001/ARMTemplateParametersForFactory.json
+          # additionalParameters: 'key1=value key2=value keyN=value'
           # skipAzModuleInstallation: true [optional]
