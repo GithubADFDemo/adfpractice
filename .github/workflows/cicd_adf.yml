@@ -15,115 +15,6 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
           
-#   determine-data-factories-exist:
-
-#     # The type of runner that the job will run on
-#     runs-on: ubuntu-22.04
-
-#     outputs:
-#       dataFactoryNameDev: ${{ env.dataFactoryNameDev }}
-#       dataFactoryNameUat: ${{ env.dataFactoryNameUat }}
-#       dataFactoryResourceGroupNameUat: ${{ env.dataFactoryResourceGroupNameUat }}
-#       DataFactoryExistsCheckUat: ${{ env.DataFactoryExistsCheckUat }}
-# #       dataFactoryNameTest: ${{ env.dataFactoryNameTest }}
-# #       dataFactoryNameProd: ${{ env.dataFactoryNameProd }}
-# #       dataFactoryResourceGroupNameTest: ${{ env.dataFactoryResourceGroupNameTest }}
-# #       dataFactoryResourceGroupNameProd: ${{ env.dataFactoryResourceGroupNameProd }}
-# #       DataFactoryExistsCheckTest: ${{ env.DataFactoryExistsCheckTest }}
-# #       DataFactoryExistsCheckProd: ${{ env.DataFactoryExistsCheckProd }}
-
-#     steps:
-#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#       - uses: actions/checkout@v3
-#         with:
-#           ref: main
-
-# #       # Determine If Test ADF is Deployed
-# #       - name: Determine if Test ADF in Variable File is Deployed
-# #         uses: azure/powershell@v1
-# #         with:
-# #           inlineScript: |
-# #             $json_data = Get-Content "./variables/local_variables.json" | ConvertFrom-Json
-
-# #             # dev data factory name
-# #             $dataFactoryNameDev = $json_data.dataFactoryNameDev
-# #             "dataFactoryNameDev=$dataFactoryNameDev" >> $env:GITHUB_ENV
-
-# #             # test data factory check
-# #             $dataFactoryNameTest = $json_data.dataFactoryNameTest
-# #             "dataFactoryNameTest=$dataFactoryNameTest" >> $env:GITHUB_ENV
-            
-# #             $dataFactoryResourceGroupNameTest = $json_data.testResourceGroupName
-# #             "dataFactoryResourceGroupNameTest=$dataFactoryResourceGroupNameTest" >> $env:GITHUB_ENV
-
-# #             if ( !([string]::IsNullOrEmpty($dataFactoryNameTest)) ) { 
-# #               $DataFactoryExistsCheckTest = Get-AzResource -Name $dataFactoryNameTest
-# #               "DataFactoryExistsCheckTest=$DataFactoryExistsCheckTest" >> $env:GITHUB_ENV
-# #             } else {
-# #               "DataFactoryExistsCheckTest=false" >> $env:GITHUB_ENV
-# #             }
-
-# #           azPSVersion: "9.1.0"
-#       - name: Login via Az module
-#         uses: azure/login@v1
-#         with:
-#           creds: ${{ secrets.AZURE_CREDENTIALS }}
-#           enable-AzPSSession: true 
-          
-#       # Determine If Uat ADF is Deployed
-#       - name: Determine if Uat ADF in Variable File is Deployed
-#         uses: azure/powershell@v1
-#         with:
-#           inlineScript: |
-#             $json_data = Get-Content "./variables/local_variables.json" | ConvertFrom-Json
-
-#             # uat data factory check
-#             $dataFactoryNameUat = $json_data.dataFactoryNameUat
-#             "dataFactoryNameUat=$dataFactoryNameUat" >> $env:GITHUB_ENV
-            
-#             $dataFactoryResourceGroupNameUat = $json_data.uatResourceGroupName
-#             "dataFactoryResourceGroupNameUat=$dataFactoryResourceGroupNameUat" >> $env:GITHUB_ENV
-
-#             if ( !([string]::IsNullOrEmpty($dataFactoryNameUat)) ) { 
-#               $DataFactoryExistsCheckUat = Get-AzResource -Name $dataFactoryNameUat
-#               "DataFactoryExistsCheckUat=$DataFactoryExistsCheckUat" >> $env:GITHUB_ENV
-#             } else {
-#               "DataFactoryExistsCheckUat=false" >> $env:GITHUB_ENV
-#             }
-            
-#           azPSVersion: "9.1.0"
-
-#   deploy-to-test-datafactory:
-#     needs: determine-data-factories-exist
-#     if: ${{ needs.determine-data-factories-exist.outputs.DataFactoryExistsCheckTest != 'false' }}
-
-#     # The type of runner that the job will run on
-#     runs-on: ubuntu-22.04
-
-#     environment: 
-#       name: test
-
-#     steps:
-#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#       - uses: actions/checkout@v3
-
-#       # Log into Azure
-#       - name: Log into Azure
-#         uses: azure/login@v1
-#         with:
-#           creds: '{"clientId":"${{ secrets.SERVICE_PRINCIPAL_CLIENT_ID }}","clientSecret":"${{ secrets.SERVICE_PRINCIPAL_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID_TEST }}","tenantId":"${{ secrets.TENANT_ID }}"}'
-#           enable-AzPSSession: true
-
-#       - name: Deploy to Data Factory
-#         uses: Azure/data-factory-deploy-action@v1.2.0
-#         with:
-#           resourceGroupName: ${{ needs.determine-data-factories-exist.outputs.dataFactoryResourceGroupNameTest }}
-#           dataFactoryName: ${{ needs.determine-data-factories-exist.outputs.dataFactoryNameDev }}
-#           armTemplateFile: ./${{ needs.determine-data-factories-exist.outputs.dataFactoryNameDev }}/ARMTemplateForFactory.json
-#           armTemplateParametersFile: ./${{ needs.determine-data-factories-exist.outputs.dataFactoryNameTest }}/ARMTemplateParametersForFactory.json
-#           # additionalParameters: 'key1=value key2=value keyN=value' [optional]
-#           # skipAzModuleInstallation: true [optional]
-
   deploy-to-uat-datafactory:
 #     needs: determine-data-factories-exist
 #     if: ${{ needs.determine-data-factories-exist.outputs.DataFactoryExistsCheckUat != 'false' }}
@@ -153,6 +44,8 @@ jobs:
           resourceGroupName: rg-uat
           dataFactoryName: adf-uat-1001
           armTemplateFile: ./adf-dev-1001/ARMTemplateForFactory.json
-          armTemplateParametersFile: ./adf-dev-1001/ARMTemplateParametersForFactory.json
-          additionalParameters: 'ADBLinkedService_properties_typeProperties_domain=${{secrets.UAT_ADB_WORKSPACE_URL}} ADBLinkedService_properties_typeProperties_existingClusterId=0303-114040-3ne2ywnk ADBLinkedService_properties_typeProperties_workspaceResourceId=${{secrets.UAT_ADB_WORKSPACE_RESOURCE_ID}} default_properties_kv_name_value=${{secrets.UAT_KEYVAULT_URI}} default_properties_environment_value=uat AzureKeyVault_ls_properties_typeProperties_baseUrl=${{secrets.UAT_KEYVAULT_URI}}'
+          armTemplateParametersFile: ./adf-dev-1001/uat_parameters.yml
+#           armTemplateParametersFile: ./adf-dev-1001/ARMTemplateParametersForFactory.json
+#           additionalParameters: 'ADBLinkedService_properties_typeProperties_domain=${{secrets.UAT_ADB_WORKSPACE_URL}} ADBLinkedService_properties_typeProperties_existingClusterId=0303-114040-3ne2ywnk ADBLinkedService_properties_typeProperties_workspaceResourceId=${{secrets.UAT_ADB_WORKSPACE_RESOURCE_ID}} default_properties_kv_name_value=${{secrets.UAT_KEYVAULT_URI}} default_properties_environment_value=uat AzureKeyVault_ls_properties_typeProperties_baseUrl=${{secrets.UAT_KEYVAULT_URI}}'
+          
           # skipAzModuleInstallation: true [optional]
