@@ -44,7 +44,7 @@ jobs:
           resourceGroupName: rg-uat
           dataFactoryName: adf-uat-1001
           armTemplateFile: ./adf-dev-1001/ARMTemplateForFactory.json
-          armTemplateParametersFile: ./adf-dev-1001/arm-override/uat_parameters.json
+          armTemplateParametersFile: ./adf-dev-1001/uat_parameters.yml
 #           armTemplateParametersFile: ./adf-dev-1001/ARMTemplateParametersForFactory.json
 #           additionalParameters: 'ADBLinkedService_properties_typeProperties_domain=${{secrets.UAT_ADB_WORKSPACE_URL}} ADBLinkedService_properties_typeProperties_existingClusterId=0303-114040-3ne2ywnk ADBLinkedService_properties_typeProperties_workspaceResourceId=${{secrets.UAT_ADB_WORKSPACE_RESOURCE_ID}} default_properties_kv_name_value=${{secrets.UAT_KEYVAULT_URI}} default_properties_environment_value=uat AzureKeyVault_ls_properties_typeProperties_baseUrl=${{secrets.UAT_KEYVAULT_URI}}'
           
