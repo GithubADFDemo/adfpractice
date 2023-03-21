@@ -1,0 +1,9 @@
+# Parameter file for UAT environment
+{
+  "ADBLinkedService_properties_typeProperties_domain": "https://adb-2507322872003135.15.azuredatabricks.net/",
+  "ADBLinkedService_properties_typeProperties_existingClusterId": "0303-114040-3ne2ywnk",
+  "ADBLinkedService_properties_typeProperties_workspaceResourceId": "/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-uat/providers/Microsoft.Databricks/workspaces/adb-uat-1001",
+  "default_properties_kv_name_value": "https://kv-uat-1002.vaultazure.net/",
+  "default_properties_environment_value": "uat",
+  "AzureKeyVault_ls_properties_typeProperties_baseUrl": "https://kv-uat-1002.vaultazure.net/"
+}
