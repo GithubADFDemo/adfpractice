@@ -16,7 +16,7 @@
 			"value": "0303-114040-3ne2ywnk"
 		},
 		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
-			"value": "https://kv-uat-1002.vaultazure.net/"
+			"value": "https://kv-uat-1002.vault.azure.net/"
 		},
 		"LS-ADLS_properties_typeProperties_url": {
 			"value": "https://csg100320009c814a38.dfs.core.windows.net"
