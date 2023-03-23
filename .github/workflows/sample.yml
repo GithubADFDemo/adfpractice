@@ -21,7 +21,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
         with:
-          ref: 'adf_publish'
+          ref: '<ADF PUBLISH BRANCH NAME>'
       # Log into Azure
       - name: Login via Az module
         uses: azure/login@v1
