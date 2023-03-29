@@ -17,7 +17,7 @@
 		},
 		"ADBLinkedService_properties_typeProperties_existingClusterId": {
 			"type": "string",
-			"defaultValue": "0221-084239-yr0qyw3z"
+			"defaultValue": "0329-090610-a98py9mt"
 		},
 		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -61,12 +61,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"default_properties_kv_name_value": {
-						"value": "[parameters('default_properties_kv_name_value')]"
-					},
-					"default_properties_environment_value": {
-						"value": "[parameters('default_properties_environment_value')]"
 					},
 					"ADBLinkedService_properties_typeProperties_domain": {
 						"value": "[parameters('ADBLinkedService_properties_typeProperties_domain')]"

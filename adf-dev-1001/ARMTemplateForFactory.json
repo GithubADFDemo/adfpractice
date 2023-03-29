@@ -17,7 +17,7 @@
 		},
 		"ADBLinkedService_properties_typeProperties_existingClusterId": {
 			"type": "string",
-			"defaultValue": "0221-084239-yr0qyw3z"
+			"defaultValue": "0329-090610-a98py9mt"
 		},
 		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -119,7 +119,7 @@
 						"dependsOn": [],
 						"userProperties": [],
 						"typeProperties": {
-							"waitTimeInSeconds": 100
+							"waitTimeInSeconds": 1000
 						}
 					}
 				],

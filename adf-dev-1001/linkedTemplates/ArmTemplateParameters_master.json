@@ -12,7 +12,7 @@
 			"value": "/subscriptions/7c3e5137-64ea-47cb-8280-0d4fa6c30bc7/resourceGroups/rg-dev/providers/Microsoft.Databricks/workspaces/adb-dev-1001"
 		},
 		"ADBLinkedService_properties_typeProperties_existingClusterId": {
-			"value": "0221-084239-yr0qyw3z"
+			"value": "0329-090610-a98py9mt"
 		},
 		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
 			"value": "https://kv-dev-1001.vault.azure.net/"
