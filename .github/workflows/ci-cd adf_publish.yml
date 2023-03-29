@@ -14,8 +14,8 @@ jobs:
   deploy-to-uat-datafactory:
     # The type of runner that the job will run on
     runs-on: ubuntu-22.04
-#     environment: 
-#       name: production
+    environment: 
+      name: uat
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
