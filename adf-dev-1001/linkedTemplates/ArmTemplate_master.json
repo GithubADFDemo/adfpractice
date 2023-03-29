@@ -62,6 +62,12 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"default_properties_kv_name_value": {
+						"value": "[parameters('default_properties_kv_name_value')]"
+					},
+					"default_properties_environment_value": {
+						"value": "[parameters('default_properties_environment_value')]"
+					},
 					"ADBLinkedService_properties_typeProperties_domain": {
 						"value": "[parameters('ADBLinkedService_properties_typeProperties_domain')]"
 					},
