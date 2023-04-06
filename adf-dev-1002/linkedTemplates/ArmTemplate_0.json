@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-dev-1002"
 		},
+		"default_properties_kv_name_value": {
+			"type": "string",
+			"defaultValue": "https://kv-dev-1002.vault.azure.net/"
+		},
 		"ADBLinkedService_properties_typeProperties_domain": {
 			"type": "string",
 			"defaultValue": "https://adb-2923826945884909.9.azuredatabricks.net"
@@ -36,7 +40,12 @@
 			"name": "[concat(parameters('factoryName'), '/default')]",
 			"type": "Microsoft.DataFactory/factories/globalparameters",
 			"apiVersion": "2018-06-01",
-			"properties": {},
+			"properties": {
+				"kv_name": {
+					"type": "string",
+					"value": "[parameters('default_properties_kv_name_value')]"
+				}
+			},
 			"dependsOn": []
 		},
 		{

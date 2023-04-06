@@ -19,6 +19,9 @@
 		},
 		"LS-ADLS_properties_typeProperties_url": {
 			"value": "https://cs210032001c77d1d5e.dfs.core.windows.net/"
+		},
+		"default_properties_kv_name_value": {
+			"value": "https://kv-dev-1002.vault.azure.net/"
 		}
 	}
 }

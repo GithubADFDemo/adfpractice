@@ -26,6 +26,10 @@
 		"LS-ADLS_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://cs210032001c77d1d5e.dfs.core.windows.net/"
+		},
+		"default_properties_kv_name_value": {
+			"type": "string",
+			"defaultValue": "https://kv-dev-1002.vault.azure.net/"
 		}
 	},
 	"variables": {
@@ -573,7 +577,12 @@
 			"name": "[concat(parameters('factoryName'), '/default')]",
 			"type": "Microsoft.DataFactory/factories/globalparameters",
 			"apiVersion": "2018-06-01",
-			"properties": {},
+			"properties": {
+				"kv_name": {
+					"type": "string",
+					"value": "[parameters('default_properties_kv_name_value')]"
+				}
+			},
 			"dependsOn": []
 		}
 	]

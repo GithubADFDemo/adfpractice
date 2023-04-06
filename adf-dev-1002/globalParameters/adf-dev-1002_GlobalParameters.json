@@ -1,1 +1,6 @@
-{}
+{
+	"kv_name": {
+		"type": "string",
+		"value": "https://kv-dev-1002.vault.azure.net/"
+	}
+}
