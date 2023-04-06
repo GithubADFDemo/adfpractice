@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-dev-1002"
+		},
+		"ADBLinkedService_properties_typeProperties_domain": {
+			"value": "https://adb-2923826945884909.9.azuredatabricks.net"
+		},
+		"ADBLinkedService_properties_typeProperties_workspaceResourceId": {
+			"value": "/subscriptions/aad39ad4-37cd-4c77-9cd9-0906efcae14a/resourceGroups/my-dev-rg/providers/Microsoft.Databricks/workspaces/adb-dev-1002"
+		},
+		"ADBLinkedService_properties_typeProperties_existingClusterId": {
+			"value": "0406-054440-axr19ebc"
+		},
+		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
+			"value": "https://kv-dev-1002.vault.azure.net/"
+		},
+		"LS-ADLS_properties_typeProperties_url": {
+			"value": "https://cs210032001c77d1d5e.dfs.core.windows.net/"
+		}
+	}
+}
