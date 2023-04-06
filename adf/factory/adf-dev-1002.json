@@ -1,5 +1,13 @@
 {
 	"name": "adf-dev-1002",
+	"properties": {
+		"globalParameters": {
+			"kv_name": {
+				"type": "string",
+				"value": "https://kv-dev-1002.vault.azure.net/"
+			}
+		}
+	},
 	"location": "eastus",
 	"identity": {
 		"type": "SystemAssigned",
