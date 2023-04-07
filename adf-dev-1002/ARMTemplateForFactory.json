@@ -115,7 +115,7 @@
 						"dependsOn": [],
 						"userProperties": [],
 						"typeProperties": {
-							"waitTimeInSeconds": 10
+							"waitTimeInSeconds": 1
 						}
 					}
 				],
@@ -339,7 +339,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "car.csv",
+						"fileName": "cities.csv",
 						"fileSystem": "blob"
 					},
 					"columnDelimiter": ",",
