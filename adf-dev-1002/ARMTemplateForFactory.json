@@ -150,7 +150,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Repos/rspl.benifit2@hotmail.com/adfpractice/databricks/sample"
+							"notebookPath": "/Repos/rspl.training@outlook.com/adfpractice/databricks/sample"
 						},
 						"linkedServiceName": {
 							"referenceName": "ADBLinkedService",
