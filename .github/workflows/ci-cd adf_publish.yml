@@ -3,9 +3,9 @@ name: cicd-adf adf_publish
 # Controls when the workflow will run
 on:
   # Workflow executes when new commit happens on main within data factory publish folder
-#   push:
-#     branches:
-#       - 'adf_publish'
+  push:
+    branches:
+      - 'adf_publish'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
