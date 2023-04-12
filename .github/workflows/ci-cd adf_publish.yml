@@ -13,8 +13,8 @@ jobs:
   deploy-to-stage-datafactory:
     # The type of runner that the job will run on
     runs-on: ubuntu-22.04
-#     environment: 
-#       name: uat
+    environment: 
+      name: stage
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
