@@ -16,7 +16,7 @@ data "azuread_application_template" "dbx" {
 }
 
 resource "azuread_application" "scim" {
-  display_name = "scim-connector"
+  display_name = "scim-connector123"
   template_id  = data.azuread_application_template.dbx.template_id
   
   app_role {
