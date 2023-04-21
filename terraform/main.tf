@@ -25,7 +25,7 @@ resource "azuread_application" "scim" {
     display_name = "User"
     enabled = true
     id = data.azuread_client_config.current.object_id
-    value = "User.Read"
+    value = "User.Write"
   }
   feature_tags {
     enterprise = true
