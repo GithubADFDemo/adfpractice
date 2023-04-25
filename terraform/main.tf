@@ -58,8 +58,8 @@ resource "azuread_synchronization_secret" "example" {
   }
 }
 
-resource "azuread_synchronization_job" "sync" {
-  service_principal_id = azuread_service_principal.test.id
-  template_id          = "dataBricks"
-  enabled              = true
-}
+# resource "azuread_synchronization_job" "sync" {
+#   service_principal_id = azuread_service_principal.test.id
+#   template_id          = "dataBricks"
+#   enabled              = true
+# }
