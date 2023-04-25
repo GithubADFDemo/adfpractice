@@ -10,7 +10,7 @@ terraform {
 provider "azuread" {
 }
 data "azuread_client_config" "current" {}
-
+data "azurerm_client_config" "current" {}
 data "azuread_application_template" "dbx" {
   display_name = "Azure Databricks SCIM Provisioning Connector"
 }
@@ -18,7 +18,7 @@ data "azuread_application_template" "dbx" {
 resource "azuread_application" "scim" {
   display_name = "scim-dbx"
   template_id  = data.azuread_application_template.dbx.template_id
-  
+  owners = [ data.azurerm_client_config.current.object_id ]
   app_role {
     allowed_member_types = [ "User" ]
     description = "Users/Groups Permission"
