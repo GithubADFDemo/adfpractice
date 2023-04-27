@@ -1,13 +1,27 @@
 terraform {
   required_providers {
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = "~>3.7.0"
+    }    
     azuread = {
       source  = "hashicorp/azuread"
       version = "2.37.1"
     }
   }
+  backend "azurerm" {
+        resource_group_name  = "cloud-shell-storage-eastus"
+        storage_account_name = "cs210032001c77d1d5e"
+        container_name       = "tfstate"
+        key                  = "terraform.tfstate"
+  }  
 }
 
 provider "azuread" {
+}
+
+provider "azurerm" {
+  features {}
 }
 
 data "azuread_client_config" "current" {}
@@ -40,7 +54,7 @@ resource "azuread_service_principal" "test" {
 }
 
 resource "azuread_synchronization_secret" "example" {
-  service_principal_id = azuread_service_principal.test.application_id
+  service_principal_id = azuread_service_principal.test.id
 
   credential {
     key   = "BaseAddress"
