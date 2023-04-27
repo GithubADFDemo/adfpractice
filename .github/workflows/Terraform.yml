@@ -40,8 +40,10 @@ jobs:
       run: terraform init    
     
     - name: plan
-      run: |
-         terraform plan    
+      run: terraform plan
+      working-directory: './terraform'
+     
 
     - name: apply
       run: terraform apply
+      working-directory: './terraform'
