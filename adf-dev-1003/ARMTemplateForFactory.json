@@ -7,17 +7,9 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-dev-1003"
 		},
-		"ADBLinkedService_properties_typeProperties_domain": {
-			"type": "string",
-			"defaultValue": "https://adb-2923826945884909.9.azuredatabricks.net"
-		},
-		"ADBLinkedService_properties_typeProperties_workspaceResourceId": {
-			"type": "string",
-			"defaultValue": "/subscriptions/aad39ad4-37cd-4c77-9cd9-0906efcae14a/resourceGroups/my-dev-rg/providers/Microsoft.Databricks/workspaces/adb-dev-1002"
-		},
 		"ADBLinkedService_properties_typeProperties_existingClusterId": {
 			"type": "string",
-			"defaultValue": "0406-054440-axr19ebc"
+			"defaultValue": "sfsdgfdhfdshdfgystrytr"
 		},
 		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -104,7 +96,7 @@
 					"cancelAfter": {}
 				},
 				"annotations": [],
-				"lastPublishTime": "2023-03-03T11:58:23Z"
+				"lastPublishTime": "2023-06-09T10:38:17Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/source')]",
@@ -143,7 +135,7 @@
 					"cancelAfter": {}
 				},
 				"annotations": [],
-				"lastPublishTime": "2023-03-03T15:08:07Z"
+				"lastPublishTime": "2023-06-09T10:38:17Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ADBLinkedService')]"
@@ -169,7 +161,8 @@
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
 				},
-				"annotations": []
+				"annotations": [],
+				"lastPublishTime": "2023-06-09T10:38:16Z"
 			},
 			"dependsOn": []
 		},
@@ -447,13 +440,21 @@
 				"annotations": [],
 				"type": "AzureDatabricks",
 				"typeProperties": {
-					"domain": "[parameters('ADBLinkedService_properties_typeProperties_domain')]",
-					"authentication": "MSI",
-					"workspaceResourceId": "[parameters('ADBLinkedService_properties_typeProperties_workspaceResourceId')]",
+					"domain": "https://adb-2923826945884909.9.azuredatabricks.net",
+					"accessToken": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "AzureKeyVault_ls",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "SQLPassword"
+					},
 					"existingClusterId": "[parameters('ADBLinkedService_properties_typeProperties_existingClusterId')]"
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureKeyVault_ls')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AzureKeyVault_ls')]",
@@ -487,7 +488,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -510,41 +511,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/copy_pipeline')]"
 			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AutoResolveIntegrationRuntime')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "Managed",
-				"typeProperties": {
-					"computeProperties": {
-						"location": "AutoResolve",
-						"dataFlowProperties": {
-							"computeType": "General",
-							"coreCount": 8,
-							"timeToLive": 0
-						}
-					}
-				},
-				"managedVirtualNetwork": {
-					"type": "ManagedVirtualNetworkReference",
-					"referenceName": "default"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/selfhosted-integration-runtime')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "SelfHosted",
-				"typeProperties": {}
-			},
-			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/default')]",

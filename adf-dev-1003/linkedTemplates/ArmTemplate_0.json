@@ -7,18 +7,6 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-dev-1003"
 		},
-		"ADBLinkedService_properties_typeProperties_domain": {
-			"type": "string",
-			"defaultValue": "https://adb-2923826945884909.9.azuredatabricks.net"
-		},
-		"ADBLinkedService_properties_typeProperties_workspaceResourceId": {
-			"type": "string",
-			"defaultValue": "/subscriptions/aad39ad4-37cd-4c77-9cd9-0906efcae14a/resourceGroups/my-dev-rg/providers/Microsoft.Databricks/workspaces/adb-dev-1002"
-		},
-		"ADBLinkedService_properties_typeProperties_existingClusterId": {
-			"type": "string",
-			"defaultValue": "0406-054440-axr19ebc"
-		},
 		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://kv-dev-1002.vault.azure.net/"
@@ -26,6 +14,10 @@
 		"LS-ADLS_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://cs210032001c77d1d5e.dfs.core.windows.net/"
+		},
+		"ADBLinkedService_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "sfsdgfdhfdshdfgystrytr"
 		}
 	},
 	"variables": {
@@ -52,24 +44,8 @@
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
 				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ADBLinkedService')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "ADB Linked Service via Access Token",
 				"annotations": [],
-				"type": "AzureDatabricks",
-				"typeProperties": {
-					"domain": "[parameters('ADBLinkedService_properties_typeProperties_domain')]",
-					"authentication": "MSI",
-					"workspaceResourceId": "[parameters('ADBLinkedService_properties_typeProperties_workspaceResourceId')]",
-					"existingClusterId": "[parameters('ADBLinkedService_properties_typeProperties_existingClusterId')]"
-				}
+				"lastPublishTime": "2023-06-09T10:38:16Z"
 			},
 			"dependsOn": []
 		},
@@ -100,59 +76,11 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/selfhosted-integration-runtime')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "SelfHosted",
-				"typeProperties": {}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/default')]",
 			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
 			"apiVersion": "2018-06-01",
 			"properties": {},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Notebook",
-						"type": "DatabricksNotebook",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Repos/rspl.training@outlook.com/adfpractice/databricks/sample"
-						},
-						"linkedServiceName": {
-							"referenceName": "ADBLinkedService",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2023-03-03T15:08:07Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ADBLinkedService')]"
-			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/destination')]",
@@ -420,28 +348,28 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AutoResolveIntegrationRuntime')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"name": "[concat(parameters('factoryName'), '/ADBLinkedService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"type": "Managed",
+				"description": "ADB Linked Service via Access Token",
+				"annotations": [],
+				"type": "AzureDatabricks",
 				"typeProperties": {
-					"computeProperties": {
-						"location": "AutoResolve",
-						"dataFlowProperties": {
-							"computeType": "General",
-							"coreCount": 8,
-							"timeToLive": 0
-						}
-					}
-				},
-				"managedVirtualNetwork": {
-					"type": "ManagedVirtualNetworkReference",
-					"referenceName": "default"
+					"domain": "https://adb-2923826945884909.9.azuredatabricks.net",
+					"accessToken": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "AzureKeyVault_ls",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "SQLPassword"
+					},
+					"existingClusterId": "[parameters('ADBLinkedService_properties_typeProperties_existingClusterId')]"
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureKeyVault_ls')]"
 			]
 		},
 		{
@@ -516,11 +444,49 @@
 					"cancelAfter": {}
 				},
 				"annotations": [],
-				"lastPublishTime": "2023-03-03T11:58:23Z"
+				"lastPublishTime": "2023-06-09T10:38:17Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/source')]",
 				"[concat(variables('factoryId'), '/datasets/destination')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Notebook",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Repos/rspl.training@outlook.com/adfpractice/databricks/sample"
+						},
+						"linkedServiceName": {
+							"referenceName": "ADBLinkedService",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2023-06-09T10:38:17Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADBLinkedService')]"
 			]
 		},
 		{
@@ -529,7 +495,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
