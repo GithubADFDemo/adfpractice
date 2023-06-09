@@ -118,7 +118,8 @@
                     "connectionString": "|:-connectionString:secureString",
                     "hostKeyFingerprint": "=",
                     "mlWorkspaceName": "=",
-                    "accessToken": "="
+                    "accessToken": "=",
+                    "password": "="
                 }
             }
         },
