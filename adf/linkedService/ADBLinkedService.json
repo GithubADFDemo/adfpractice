@@ -1,5 +1,6 @@
 {
 	"name": "ADBLinkedService",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"description": "ADB Linked Service via Access Token",
 		"annotations": [],
@@ -10,6 +11,5 @@
 			"workspaceResourceId": "/subscriptions/aad39ad4-37cd-4c77-9cd9-0906efcae14a/resourceGroups/my-dev-rg/providers/Microsoft.Databricks/workspaces/adb-dev-1002",
 			"existingClusterId": "0406-054440-axr19ebc"
 		}
-	},
-	"type": "Microsoft.DataFactory/factories/linkedservices"
+	}
 }
