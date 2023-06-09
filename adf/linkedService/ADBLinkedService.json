@@ -1,15 +1,21 @@
 {
 	"name": "ADBLinkedService",
-	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"description": "ADB Linked Service via Access Token",
 		"annotations": [],
 		"type": "AzureDatabricks",
 		"typeProperties": {
 			"domain": "https://adb-2923826945884909.9.azuredatabricks.net",
-			"authentication": "MSI",
-			"workspaceResourceId": "/subscriptions/aad39ad4-37cd-4c77-9cd9-0906efcae14a/resourceGroups/my-dev-rg/providers/Microsoft.Databricks/workspaces/adb-dev-1002",
-			"existingClusterId": "0406-054440-axr19ebc"
+			"accessToken": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault_ls",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SQLPassword"
+			},
+			"existingClusterId": "sfsdgfdhfdshdfgystrytr"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
 }
