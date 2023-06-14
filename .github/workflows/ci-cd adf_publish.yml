@@ -11,11 +11,11 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   deploy-to-stage-datafactory:
-    env:
-          ARM_SUBSCRIPTION_ID: ${{ secrets.MY_SUBSCRIPTION_ID }}
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+#     env:
+#           ARM_SUBSCRIPTION_ID: ${{ secrets.MY_SUBSCRIPTION_ID }}
+#           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+#           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+#           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
     runs-on: ubuntu-22.04
     environment: 
       name: stage
