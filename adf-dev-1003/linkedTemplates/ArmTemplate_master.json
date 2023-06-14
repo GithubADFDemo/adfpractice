@@ -7,6 +7,22 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-dev-1003"
 		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=myserver.windows.net;Initial Catalog=mytestdb;User ID=sqladmin"
+		},
+		"ADBLinkedService_properties_typeProperties_accessToken": {
+			"type": "object",
+			"defaultValue": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault_ls",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SQLPassword"
+			}
+		},
 		"ADBLinkedService_properties_typeProperties_existingClusterId": {
 			"type": "string",
 			"defaultValue": "sfsdgfdhfdshdfgystrytr"
@@ -14,6 +30,17 @@
 		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://kv-dev-1002.vault.azure.net/"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_password": {
+			"type": "object",
+			"defaultValue": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault_ls",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SQLPassword"
+			}
 		},
 		"LS-ADLS_properties_typeProperties_url": {
 			"type": "string",
@@ -46,14 +73,23 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureSqlDatabase1_connectionString": {
+						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
+					},
 					"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
 						"value": "[parameters('AzureKeyVault_ls_properties_typeProperties_baseUrl')]"
 					},
 					"LS-ADLS_properties_typeProperties_url": {
 						"value": "[parameters('LS-ADLS_properties_typeProperties_url')]"
 					},
+					"ADBLinkedService_properties_typeProperties_accessToken": {
+						"value": "[parameters('ADBLinkedService_properties_typeProperties_accessToken')]"
+					},
 					"ADBLinkedService_properties_typeProperties_existingClusterId": {
 						"value": "[parameters('ADBLinkedService_properties_typeProperties_existingClusterId')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_password": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_password')]"
 					}
 				}
 			},

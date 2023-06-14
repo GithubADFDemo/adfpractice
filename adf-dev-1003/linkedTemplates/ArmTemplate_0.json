@@ -7,6 +7,11 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-dev-1003"
 		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=myserver.windows.net;Initial Catalog=mytestdb;User ID=sqladmin"
+		},
 		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://kv-dev-1002.vault.azure.net/"
@@ -15,9 +20,31 @@
 			"type": "string",
 			"defaultValue": "https://cs210032001c77d1d5e.dfs.core.windows.net/"
 		},
+		"ADBLinkedService_properties_typeProperties_accessToken": {
+			"type": "object",
+			"defaultValue": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault_ls",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SQLPassword"
+			}
+		},
 		"ADBLinkedService_properties_typeProperties_existingClusterId": {
 			"type": "string",
 			"defaultValue": "sfsdgfdhfdshdfgystrytr"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_password": {
+			"type": "object",
+			"defaultValue": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault_ls",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SQLPassword"
+			}
 		}
 	},
 	"variables": {
@@ -357,15 +384,24 @@
 				"type": "AzureDatabricks",
 				"typeProperties": {
 					"domain": "https://adb-2923826945884909.9.azuredatabricks.net",
-					"accessToken": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "AzureKeyVault_ls",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "SQLPassword"
-					},
+					"accessToken": "[parameters('ADBLinkedService_properties_typeProperties_accessToken')]",
 					"existingClusterId": "[parameters('ADBLinkedService_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureKeyVault_ls')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]",
+					"password": "[parameters('AzureSqlDatabase1_properties_typeProperties_password')]"
 				}
 			},
 			"dependsOn": [
@@ -381,7 +417,14 @@
 					{
 						"name": "Copy data",
 						"type": "Copy",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Wait1",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
@@ -437,6 +480,15 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "Wait1",
+						"type": "Wait",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": 1
+						}
 					}
 				],
 				"policy": {
