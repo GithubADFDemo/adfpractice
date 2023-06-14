@@ -26,11 +26,12 @@ jobs:
           ref: 'adf_publish'
 
       # Log into Azure
-#       - name: Login via Az module
-#         uses: azure/login@v1
-#         with:
+      - name: Login via Az module
+        uses: azure/login@v1
+        with:
+          creds: '{"clientId":"${{ secrets.ARM_CLIENT_ID }}","clientSecret":"${{ secrets.ARM_CLIENT_SECRET }}","subscriptionId":"${{ secrets.MY_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.ARM_TENANT_ID }}"}'
 #           creds: ${{ secrets.AZURE_CREDENTIALS }}
-#           enable-AzPSSession: true 
+          enable-AzPSSession: true 
 
       - name: Deploy to Data Factory
         uses: Azure/data-factory-deploy-action@v1.2.0
