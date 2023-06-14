@@ -31,8 +31,8 @@ jobs:
       - name: Deploy to Data Factory
         uses: Azure/data-factory-deploy-action@v1.2.0
         with:
-          resourceGroupName: my-stage-rg
-          dataFactoryName: adf-stage-1002
-          armTemplateFile: ./adf-dev-1002/ARMTemplateForFactory.json
-          armTemplateParametersFile: ./adf-dev-1002/arm-override/stage_parameters.json
+          resourceGroupName: rg-uat
+          dataFactoryName: adf-uat-1003
+          armTemplateFile: ./adf-dev-1003/ARMTemplateForFactory.json
+          armTemplateParametersFile: ./adf-dev-1002/arm-override/uat_parameters.json
 
