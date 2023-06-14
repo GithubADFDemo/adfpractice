@@ -5,23 +5,37 @@
 		"factoryName": {
 			"value": "adf-uat-1003"
 		},
-		"ADBLinkedService_properties_typeProperties_domain": {
-			"value": "https://adb-5928027587367279.19.azuredatabricks.net"
+		"AzureSqlDatabase1_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=myserver.windows.net;Initial Catalog=mytestdb;User ID=sqladmin"
 		},
-		"ADBLinkedService_properties_typeProperties_workspaceResourceId": {
-			"value": "/subscriptions/aad39ad4-37cd-4c77-9cd9-0906efcae14a/resourceGroups/my-stage-rg/providers/Microsoft.Databricks/workspaces/adb-stage-1002"
+		"ADBLinkedService_properties_typeProperties_accessToken": {
+			"value": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault_ls",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SQLPassword"
+			}
 		},
 		"ADBLinkedService_properties_typeProperties_existingClusterId": {
-			"value": "0406-054843-x1tp9rpl"
+			"value": "sfsdgfdhfdshdfgystrytr"
 		},
 		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
 			"value": "https://kv-uat-1003.vault.azure.net/"
 		},
+		"AzureSqlDatabase1_properties_typeProperties_password": {
+			"value": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault_ls",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SQLPassword"
+			}
+		},
 		"LS-ADLS_properties_typeProperties_url": {
 			"value": "https://cs210032001c77d1d5e.dfs.core.windows.net/"
-		},
-		"default_properties_kv_name_value": {
-			"value": "https://kv-uat-1003.vault.azure.net/"
 		}
 	}
 }
