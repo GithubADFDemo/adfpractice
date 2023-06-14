@@ -35,4 +35,5 @@ jobs:
           dataFactoryName: adf-uat-1003
           armTemplateFile: ./adf-dev-1003/ARMTemplateForFactory.json
           armTemplateParametersFile: ./adf-dev-1002/arm-override/uat_parameters.json
+          deploymentMode: Incremental
 
