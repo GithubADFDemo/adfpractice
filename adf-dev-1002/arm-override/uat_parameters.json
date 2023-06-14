@@ -3,7 +3,7 @@
 	"contentVersion": "1.0.0.0",
 	"parameters": {
 		"factoryName": {
-			"value": "adf-stage-1002"
+			"value": "adf-uat-1003"
 		},
 		"ADBLinkedService_properties_typeProperties_domain": {
 			"value": "https://adb-5928027587367279.19.azuredatabricks.net"
@@ -15,13 +15,13 @@
 			"value": "0406-054843-x1tp9rpl"
 		},
 		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
-			"value": "https://kv-stage-1002.vault.azure.net/"
+			"value": "https://kv-uat-1003.vault.azure.net/"
 		},
 		"LS-ADLS_properties_typeProperties_url": {
 			"value": "https://cs210032001c77d1d5e.dfs.core.windows.net/"
 		},
 		"default_properties_kv_name_value": {
-			"value": "https://kv-stage-1002.vault.azure.net/"
+			"value": "https://kv-uat-1003.vault.azure.net/"
 		}
 	}
 }
