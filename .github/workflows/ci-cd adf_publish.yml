@@ -67,7 +67,7 @@ jobs:
             -ResourceGroupName "uat-rg" `
             -DataFactoryName 'adf-uat-1003' `
             -predeployment $false `
-            -deleteDeployment $true
+            -deleteDeployment $false
         shell: pwsh
           
 #       - name: Deploy Azure Resource Manager (ARM) Template
