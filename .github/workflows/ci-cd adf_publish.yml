@@ -44,7 +44,7 @@ jobs:
 #           armTemplateParametersFile: ./adf-dev-1002/arm-override/uat_parameters.json
       - name: Run Pre-deployment script
         run: |
-          ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
+          adf-dev-1002/arm-override/PrePostDeploymentScript.ps1 `
             -armTemplate "./adf-dev-1003/ARMTemplateForFactory.json" `
             -ResourceGroupName "uat-rg" `
             -DataFactoryName "adf-uat-1003" `
@@ -61,7 +61,7 @@ jobs:
 
       - name: Run Post-deployment script
         run: |
-          ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
+          adf-dev-1002/arm-override/PrePostDeploymentScript.ps1 `
             -armTemplate ./adf-dev-1003/ARMTemplateForFactory.json" `
             -ResourceGroupName "uat-rg" `
             -DataFactoryName 'adf-uat-1003' `
