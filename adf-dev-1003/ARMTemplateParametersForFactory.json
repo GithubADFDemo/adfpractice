@@ -9,7 +9,7 @@
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=myserver.windows.net;Initial Catalog=mytestdb;User ID=sqladmin"
 		},
 		"LS-ADLS_accountKey": {
-			"value": ""
+			"value": " "
 		},
 		"ADBLinkedService_properties_typeProperties_accessToken": {
 			"value": {
