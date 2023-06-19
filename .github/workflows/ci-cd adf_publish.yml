@@ -19,8 +19,8 @@ jobs:
 #           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
 #           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
     runs-on: ubuntu-22.04
-    environment: 
-      name: stage
+#     environment: 
+#       name: stage
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
