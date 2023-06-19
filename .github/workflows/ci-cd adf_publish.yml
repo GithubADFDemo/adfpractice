@@ -42,6 +42,9 @@ jobs:
 #           dataFactoryName: adf-uat-1003
 #           armTemplateFile: ./adf-dev-1003/ARMTemplateForFactory.json
 #           armTemplateParametersFile: ./adf-dev-1002/arm-override/uat_parameters.json
+      - name: Install Az PowerShell module
+        run: Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force 
+        shell: pwsh
       - name: Run Pre-deployment script
         run: ./adf-dev-1002/arm-override/PrePostDeploymentScript.ps1 `
             -armTemplate "./adf-dev-1003/ARMTemplateForFactory.json" `
