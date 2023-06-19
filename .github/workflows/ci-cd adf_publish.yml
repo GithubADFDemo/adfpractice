@@ -42,14 +42,39 @@ jobs:
 #           dataFactoryName: adf-uat-1003
 #           armTemplateFile: ./adf-dev-1003/ARMTemplateForFactory.json
 #           armTemplateParametersFile: ./adf-dev-1002/arm-override/uat_parameters.json
+      - name: Run Pre-deployment script
+        run: |
+          ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
+            -armTemplate "./adf-dev-1003/ARMTemplateForFactory.json" `
+            -ResourceGroupName "uat-rg" `
+            -DataFactoryName "adf-uat-1003" `
+            -predeployment $true `
+            -deleteDeployment $false
+        shell: pwsh
 
-          
-      - name: Deploy Azure Resource Manager (ARM) Template
-        uses: Azure/arm-deploy@v1.0.6
+      - name: Run ARM deploy
+        uses: azure/arm-deploy@v1.0.6
         with:
-        # Provide the scope of the deployment. Valid values are: 'resourcegroup', 'managementgroup', 'subscription'
-            scope: 'resourcegroup'
-            resourceGroupName: 'uat-rg'
-            template: ./adf-dev-1003/ARMTemplateForFactory.json
-            parameters: ./adf-dev-1002/arm-override/uat_parameters.json
+          resourceGroupName: 'uat-rg'
+          template: ./adf-dev-1003/ARMTemplateForFactory.json
+          parameters: ./adf-dev-1002/arm-override/uat_parameters.json
+
+      - name: Run Post-deployment script
+        run: |
+          ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
+            -armTemplate ./adf-dev-1003/ARMTemplateForFactory.json" `
+            -ResourceGroupName "uat-rg" `
+            -DataFactoryName 'adf-uat-1003' `
+            -predeployment $false `
+            -deleteDeployment $true
+        shell: pwsh
+          
+#       - name: Deploy Azure Resource Manager (ARM) Template
+#         uses: Azure/arm-deploy@v1.0.6
+#         with:
+#         # Provide the scope of the deployment. Valid values are: 'resourcegroup', 'managementgroup', 'subscription'
+#             scope: 'resourcegroup'
+#             resourceGroupName: 'uat-rg'
+#             template: ./adf-dev-1003/ARMTemplateForFactory.json
+#             parameters: ./adf-dev-1002/arm-override/uat_parameters.json
 
