@@ -18,7 +18,7 @@ jobs:
 #           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
 #           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
 #           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 #     environment: 
 #       name: stage
     steps:
@@ -43,8 +43,7 @@ jobs:
 #           armTemplateFile: ./adf-dev-1003/ARMTemplateForFactory.json
 #           armTemplateParametersFile: ./adf-dev-1002/arm-override/uat_parameters.json
       - name: Run Pre-deployment script
-        run: |
-          ./adf-dev-1002/arm-override/PrePostDeploymentScript.ps1 `
+        run: ./adf-dev-1002/arm-override/PrePostDeploymentScript.ps1 `
             -armTemplate "./adf-dev-1003/ARMTemplateForFactory.json" `
             -ResourceGroupName "uat-rg" `
             -DataFactoryName "adf-uat-1003" `
@@ -60,8 +59,7 @@ jobs:
           parameters: ./adf-dev-1002/arm-override/uat_parameters.json
 
       - name: Run Post-deployment script
-        run: |
-          ./adf-dev-1002/arm-override/PrePostDeploymentScript.ps1 `
+        run: ./adf-dev-1002/arm-override/PrePostDeploymentScript.ps1 `
             -armTemplate ./adf-dev-1003/ARMTemplateForFactory.json" `
             -ResourceGroupName "uat-rg" `
             -DataFactoryName 'adf-uat-1003' `
