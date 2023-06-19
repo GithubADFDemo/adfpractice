@@ -63,7 +63,7 @@ jobs:
 
       - name: Run Post-deployment script
         run: ./adf-dev-1002/arm-override/PrePostDeploymentScript.ps1 `
-            -armTemplate ./adf-dev-1003/ARMTemplateForFactory.json" `
+            -armTemplate "./adf-dev-1003/ARMTemplateForFactory.json" `
             -ResourceGroupName "uat-rg" `
             -DataFactoryName 'adf-uat-1003' `
             -predeployment $false `
