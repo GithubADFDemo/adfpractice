@@ -8,6 +8,9 @@
 		"AzureSqlDatabase1_connectionString": {
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=myserver.windows.net;Initial Catalog=mytestdb;User ID=sqladmin"
 		},
+		"LS-ADLS_accountKey": {
+			"value": ""
+		},
 		"ADBLinkedService_properties_typeProperties_accessToken": {
 			"value": {
 				"type": "AzureKeyVaultSecret",
@@ -22,7 +25,7 @@
 			"value": "sfsdgfdhfdshdfgystrytr"
 		},
 		"AzureKeyVault_ls_properties_typeProperties_baseUrl": {
-			"value": "https://kv-uat-1003.vault.azure.net/"
+			"value": "https://kv-dev-1002.vault.azure.net/"
 		},
 		"AzureSqlDatabase1_properties_typeProperties_password": {
 			"value": {
@@ -35,7 +38,7 @@
 			}
 		},
 		"LS-ADLS_properties_typeProperties_url": {
-			"value": "https://cs210032001c77d1d5e.dfs.core.windows.net/"
+			"value": "https://csg100320009c814a38.dfs.core.windows.net/"
 		}
 	}
 }
