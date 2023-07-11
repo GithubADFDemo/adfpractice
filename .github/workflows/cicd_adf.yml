@@ -14,8 +14,8 @@ jobs:
   deploy-to-uat-datafactory:
     # The type of runner that the job will run on
     runs-on: ubuntu-22.04
-#     environment: 
-#       name: production
+    environment: 
+      name: stage
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
@@ -29,13 +29,13 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           enable-AzPSSession: true 
 
-      - name: Deploy to Data Factory
-        uses: Azure/data-factory-deploy-action@v1.2.0
-        with:
-          resourceGroupName: my-stage-rg
-          dataFactoryName: adf-stage-1002
-          armTemplateFile: ./adf-dev-1002/ARMTemplateForFactory.json
-          armTemplateParametersFile: ./adf-dev-1002/arm-override/uat_parameters.json
+#       - name: Deploy to Data Factory
+#         uses: Azure/data-factory-deploy-action@v1.2.0
+#         with:
+#           resourceGroupName: my-stage-rg
+#           dataFactoryName: adf-stage-1002
+#           armTemplateFile: ./adf-dev-1002/ARMTemplateForFactory.json
+#           armTemplateParametersFile: ./adf-dev-1002/arm-override/uat_parameters.json
 #           armTemplateParametersFile: ./adf-dev-1002/ARMTemplateParametersForFactory.json
 #           additionalParameters: 'ADBLinkedService_properties_typeProperties_domain=${{secrets.UAT_ADB_WORKSPACE_URL}} ADBLinkedService_properties_typeProperties_existingClusterId=0303-114040-3ne2ywnk ADBLinkedService_properties_typeProperties_workspaceResourceId=${{secrets.UAT_ADB_WORKSPACE_RESOURCE_ID}} default_properties_kv_name_value=${{secrets.UAT_KEYVAULT_URI}} default_properties_environment_value=uat AzureKeyVault_ls_properties_typeProperties_baseUrl=${{secrets.UAT_KEYVAULT_URI}}'
           
