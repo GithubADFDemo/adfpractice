@@ -19,8 +19,8 @@ jobs:
 #           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
 #           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
     runs-on: ubuntu-latest
-#     environment: 
-#       name: stage
+    environment: 
+      name: stage
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
@@ -45,30 +45,30 @@ jobs:
       - name: Install Az PowerShell module
         run: Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force 
         shell: pwsh
-      - name: Run Pre-deployment script
-        run: ./adf-dev-1002/arm-override/PrePostDeploymentScript.ps1 `
-            -armTemplate "./adf-dev-1003/ARMTemplateForFactory.json" `
-            -ResourceGroupName "uat-rg" `
-            -DataFactoryName "adf-uat-1003" `
-            -predeployment $true `
-            -deleteDeployment $false
-        shell: pwsh
+#       - name: Run Pre-deployment script
+#         run: ./adf-dev-1002/arm-override/PrePostDeploymentScript.ps1 `
+#             -armTemplate "./adf-dev-1003/ARMTemplateForFactory.json" `
+#             -ResourceGroupName "uat-rg" `
+#             -DataFactoryName "adf-uat-1003" `
+#             -predeployment $true `
+#             -deleteDeployment $false
+#         shell: pwsh
 
-      - name: Run ARM deploy
-        uses: azure/arm-deploy@v1.0.6
-        with:
-          resourceGroupName: 'uat-rg'
-          template: ./adf-dev-1003/ARMTemplateForFactory.json
-          parameters: ./adf-dev-1002/arm-override/uat_parameters.json
+#       - name: Run ARM deploy
+#         uses: azure/arm-deploy@v1.0.6
+#         with:
+#           resourceGroupName: 'uat-rg'
+#           template: ./adf-dev-1003/ARMTemplateForFactory.json
+#           parameters: ./adf-dev-1002/arm-override/uat_parameters.json
 
-      - name: Run Post-deployment script
-        run: ./adf-dev-1002/arm-override/PrePostDeploymentScript.ps1 `
-            -armTemplate "./adf-dev-1003/ARMTemplateForFactory.json" `
-            -ResourceGroupName "uat-rg" `
-            -DataFactoryName 'adf-uat-1003' `
-            -predeployment $false `
-            -deleteDeployment $true
-        shell: pwsh
+#       - name: Run Post-deployment script
+#         run: ./adf-dev-1002/arm-override/PrePostDeploymentScript.ps1 `
+#             -armTemplate "./adf-dev-1003/ARMTemplateForFactory.json" `
+#             -ResourceGroupName "uat-rg" `
+#             -DataFactoryName 'adf-uat-1003' `
+#             -predeployment $false `
+#             -deleteDeployment $true
+#         shell: pwsh
           
 #       - name: Deploy Azure Resource Manager (ARM) Template
 #         uses: Azure/arm-deploy@v1.0.6
